@@ -21,7 +21,7 @@ class JsonScenarioDao {
         private const val SELECT_QUERY = "FOR document in jsonRestCollection LIMIT @@offset @@limit return t"
     }
 
-    private var arangoDb: ArangoDBAsync = ArangoDBAsync.Builder().build()
+    private var arangoDb: ArangoDBAsync = ArangoDBAsync.Builder().host("localhost", 8529).build()
     private var db: ArangoDatabaseAsync
     private var collection: ArangoCollectionAsync
     private val objectMapper = ObjectMapper()
