@@ -13,24 +13,24 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
-class TokenAuthenticationFilter: OncePerRequestFilter() {
+class TokenAuthenticationFilter : OncePerRequestFilter() {
 
     @Autowired
-    private val tokenProvider: TokenProvider? = null
+    private lateinit var tokenProvider: TokenProvider
 
     @Autowired
-    private val customUserDetailsService: CustomUserDetailsService? = null
+    private lateinit var customUserDetailsService: CustomUserDetailsService
 
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         try {
             val jwt = getJwtFromRequest(request)
 
-            if (StringUtils.hasText(jwt) && tokenProvider!!.validateToken(jwt!!)) {
+            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt!!)) {
                 val userId = tokenProvider.getUserIdFromToken(jwt)
 
-                val userDetails = customUserDetailsService!!.loadUserById(userId)
-                val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities())
+                val userDetails = customUserDetailsService.loadUserById(userId)
+                val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
                 authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
 
                 SecurityContextHolder.getContext().authentication = authentication
@@ -45,7 +45,7 @@ class TokenAuthenticationFilter: OncePerRequestFilter() {
     private fun getJwtFromRequest(request: HttpServletRequest): String? {
         val bearerToken = request.getHeader("Authorization")
         return if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            bearerToken.substring(7, bearerToken.length)
+            bearerToken.substring(bearerToken.lastIndexOf(' ') + 1, bearerToken.length)
         } else null
     }
 }
