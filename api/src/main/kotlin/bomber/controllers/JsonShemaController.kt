@@ -1,6 +1,6 @@
 package bomber.controllers
 
-import bomber.arango.ArangoDao.JsonScenarioDao
+import bomber.arango.ArangoDao.JsonShemaDao
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -8,23 +8,29 @@ import org.springframework.web.bind.annotation.*
  * @author kostya05983
  */
 @RestController
-class JsonScenarioController {
+class JsonShemaController {
 
     companion object {
-        private const val API = "/jsonScenario"
+        private const val API = "/jsonSchema"
+        private const val API_ALL = "/jsonSchemaAll"
     }
 
     /**
      * Dao for connect to db
      */
-    private val jsonDao: JsonScenarioDao = JsonScenarioDao()
+    private val jsonDao: JsonShemaDao = JsonShemaDao()
 
     /**
      * Get scenario with requested key
      */
     @RequestMapping(API, method = [RequestMethod.GET])
     fun getScenario(@RequestParam(name = "id") id: String): String {
-        return jsonDao.getScenario(id)
+        return jsonDao.getScheme(id)
+    }
+
+    @RequestMapping(API_ALL, method = [RequestMethod.GET])
+    fun getSchemes(@RequestParam("offset") offset: Int, @RequestParam("limit") limit: Int): String {
+        return jsonDao.getAllShemas(offset, limit)
     }
 
     /**
@@ -32,7 +38,7 @@ class JsonScenarioController {
      */
     @RequestMapping(API, method = [RequestMethod.POST])
     fun createScenario(@RequestBody json: String): String {
-        return jsonDao.insertScenario(json)
+        return jsonDao.insertShema(json)
     }
 
     /**
@@ -40,7 +46,7 @@ class JsonScenarioController {
      */
     @RequestMapping(API, method = [RequestMethod.PUT])
     fun updateScenario(@RequestBody json: String): String {
-        return jsonDao.updateScenario(json)
+        return jsonDao.updateShema(json)
     }
 
     /**
