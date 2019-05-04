@@ -13,10 +13,10 @@ import com.fasterxml.jackson.module.kotlin.readValue
  * This dao is responsible for crud operation scenarious
  * @author kostya05983
  */
-class JsonScenarioDao {
+class JsonShemaDao {
     companion object {
         private const val DB_NAME = "bomber"
-        private const val COLLECTION_NAME = "jsonRestCollection"
+        private const val COLLECTION_NAME = "jsonRest"
 
         private const val SELECT_QUERY = "FOR document in jsonRestCollection LIMIT @@offset @@limit return t"
     }
@@ -47,9 +47,9 @@ class JsonScenarioDao {
     }
 
     /**
-     * Get scenario by id
+     * Get shema by id
      */
-    fun getScenario(id: String): String {
+    fun getScheme(id: String): String {
         val document = collection.getDocument(id, BaseDocument::class.java).get()
 
         val map = document.properties
@@ -65,7 +65,7 @@ class JsonScenarioDao {
      * @param limit - maximum documents to return
      * @return - string with array of json's objects
      */
-    fun getAllScenarious(offset: Int, limit: Int): String {
+    fun getAllShemas(offset: Int, limit: Int): String {
         val builder = MapBuilder().put(VarFields.Offset.text, offset)
                 .put(VarFields.Limit.text, limit).get()
 
@@ -87,7 +87,7 @@ class JsonScenarioDao {
      * @param json - request body, from this we get our scanrio with object mapper
      * @return - key of new inserted document
      */
-    fun insertScenario(json: String): String {
+    fun insertShema(json: String): String {
         val map = objectMapper.readValue<Map<String, Any>>(json)
         val document = BaseDocument()
         document.properties = map
@@ -99,7 +99,7 @@ class JsonScenarioDao {
      * but what can we return?
      * @param key - the document's key unique
      */
-    fun removeScenario(key: String) {
+    fun removeShema(key: String) {
         collection.deleteDocument(key)
     }
 
@@ -108,7 +108,7 @@ class JsonScenarioDao {
      * @param json - request body, contains new value for document
      * @return - key of updated document
      */
-    fun updateScenario(json: String): String {
+    fun updateShema(json: String): String {
         val map = objectMapper.readValue<Map<String, Any>>(json)
         val document = BaseDocument()
         document.properties = map
