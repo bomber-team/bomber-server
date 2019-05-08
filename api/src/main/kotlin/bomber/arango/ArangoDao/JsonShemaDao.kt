@@ -27,23 +27,20 @@ class JsonShemaDao {
     private val objectMapper = ObjectMapper()
 
     init {
-        arangoDb.createDatabase(DB_NAME).get()
+        if (!arangoDb.databases.get().contains(DB_NAME)) {
+            arangoDb.createDatabase(DB_NAME).get()
+        }
         db = arangoDb.db(DB_NAME)
-        db.createCollection(COLLECTION_NAME).get()
+        val collectionNames = db.collections.get().map { it.name }
+        if (!collectionNames.contains(COLLECTION_NAME)) {
+            db.createCollection(COLLECTION_NAME).get()
+        }
         collection = db.collection(COLLECTION_NAME)
     }
 
     private enum class VarFields(val text: String) {
         Limit("@limit"), Offset("@offset"),
         Key("key")
-    }
-
-    /**
-     * Down our dao for scenarious interrupt connections and so on
-     */
-    fun downDao() {
-        db.drop().get()
-        arangoDb.shutdown()
     }
 
     /**
