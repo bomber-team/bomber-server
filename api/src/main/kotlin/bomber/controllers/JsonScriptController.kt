@@ -17,12 +17,12 @@ class JsonScriptController {
     private val jsonScriptDao = JsonScriptDao()
 
     @RequestMapping(API, method = [RequestMethod.GET])
-    fun getScript(@RequestParam("id") id: String): String {
+    fun getScript(@RequestParam("id") id: String): String? {
         return jsonScriptDao.getScript(id)
     }
 
     @RequestMapping(API_ALL, method = [RequestMethod.GET])
-    fun getScriptAll(@RequestParam("offset") offset: Int, limit: Int): String {
+    fun getScriptAll(@RequestParam("offset") offset: Int, limit: Int): String? {
         return jsonScriptDao.getAllScripts(offset, limit)
     }
 

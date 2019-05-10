@@ -24,12 +24,12 @@ class JsonShemaController {
      * Get scenario with requested key
      */
     @RequestMapping(API, method = [RequestMethod.GET])
-    fun getScenario(@RequestParam(name = "id") id: String): String {
+    fun getScenario(@RequestParam(name = "id") id: String): String? {
         return jsonDao.getScheme(id)
     }
 
     @RequestMapping(API_ALL, method = [RequestMethod.GET])
-    fun getSchemes(@RequestParam("offset") offset: Int, @RequestParam("limit") limit: Int): String {
+    fun getSchemes(@RequestParam("offset") offset: Int, @RequestParam("limit") limit: Int): String? {
         return jsonDao.getAllShemas(offset, limit)
     }
 
