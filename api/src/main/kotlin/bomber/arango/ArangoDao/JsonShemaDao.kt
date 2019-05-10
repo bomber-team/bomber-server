@@ -36,19 +36,14 @@ class JsonShemaDao {
         collection = db.collection(COLLECTION_NAME)
     }
 
-    private enum class VarFields(val text: String) {
-        Limit("limit"), Offset("offset"),
-        Key("key")
-    }
-
     /**
-     * Get shema by id
+     * Get shema by key
      */
-    fun getScheme(id: String): String? {
-        val document = collection.getDocument(id, BaseDocument::class.java).getNow(null) ?: return null
+    fun getScheme(key: String): String? {
+        val document = collection.getDocument(key, BaseDocument::class.java).getNow(null) ?: return null
 
         val map = document.properties
-        map[VarFields.Key.text] = document.key
+        map[Fields.KEY.text] = document.key
 
         val mapper = ObjectMapper()
         return mapper.writeValueAsString(map)
@@ -61,8 +56,8 @@ class JsonShemaDao {
      * @return - string with array of json's objects
      */
     fun getAllShemas(offset: Int, limit: Int): String? {
-        val builder = MapBuilder().put(VarFields.Offset.text, offset)
-                .put(VarFields.Limit.text, limit).get()
+        val builder = MapBuilder().put(Fields.OFFSET.text, offset)
+                .put(Fields.LIMIT.text, limit).get()
 
         val cursorAsync = db.query(SELECT_QUERY, builder, AqlQueryOptions(), BaseDocument::class.java)
                 .getNow(null) ?: return null
@@ -72,7 +67,7 @@ class JsonShemaDao {
 
         val listOfMaps = list.map {
             val map = it.properties
-            map[VarFields.Key.text] = it.key
+            map[Fields.KEY.text] = it.key
             objectMapper.writeValueAsString(map)
         }
         return objectMapper.writeValueAsString(listOfMaps)
@@ -108,6 +103,6 @@ class JsonShemaDao {
         val map = objectMapper.readValue<Map<String, Any>>(json)
         val document = BaseDocument()
         document.properties = map
-        return collection.updateDocument(map[VarFields.Key.text] as String, document).get().key
+        return collection.updateDocument(map[Fields.KEY.text] as String, document).get().key
     }
 }

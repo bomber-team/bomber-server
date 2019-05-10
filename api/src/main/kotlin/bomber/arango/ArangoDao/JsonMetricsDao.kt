@@ -1,6 +1,9 @@
 package bomber.arango.ArangoDao
 
-import com.arangodb.*
+import com.arangodb.ArangoCollectionAsync
+import com.arangodb.ArangoCursorAsync
+import com.arangodb.ArangoDBAsync
+import com.arangodb.ArangoDatabaseAsync
 import com.arangodb.entity.BaseDocument
 import com.arangodb.model.AqlQueryOptions
 import com.arangodb.util.MapBuilder
@@ -8,19 +11,18 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 
 /**
- * now this class similar to jsonSchemaDao, because we don't know anything about fields
- * but in a future, when we will connect it to web, class will have been changed
+ * This dao is used for saving json metrics in mongo
  * @author kostya05983
  */
-class JsonScriptDao {
+class JsonMetricsDao {
     companion object {
         private const val DB_NAME = "bomber"
-        private const val COLLECTION_NAME = "jsonScripts"
+        private const val COLLECTION_NAME = "jsonMetrics"
 
-        private  val SELECT_QUERY ="""
-            FOR document in jsonScripts
-                LIMIT @offset, @limit
-                return document
+        private val SELECT_QUERY = """
+            FOR document in jsonMetrics
+            LIMIT @offset, @limit
+            return document
         """.trimIndent()
     }
 
@@ -41,7 +43,7 @@ class JsonScriptDao {
         collection = db.collection(COLLECTION_NAME)
     }
 
-    fun getScript(key: String): String? {
+    fun getMetrics(key: String): String? {
         val document: BaseDocument?
         document = collection.getDocument(key, BaseDocument::class.java).get() ?: return null
 
@@ -52,7 +54,7 @@ class JsonScriptDao {
         return mapper.writeValueAsString(map)
     }
 
-    fun getAllScripts(offset: Int, limit: Int): String? {
+    fun getAllMetrics(offset: Int, limit: Int): String? {
         val builder = MapBuilder()
                 .put(Fields.OFFSET.text, offset)
                 .put(Fields.LIMIT.text, limit).get()
@@ -70,21 +72,14 @@ class JsonScriptDao {
         return objectMapper.writeValueAsString(listOfMaps)
     }
 
-    fun insertScript(json: String): String {
+    fun insertMetric(json: String): String {
         val map = objectMapper.readValue<Map<String, Any>>(json)
         val document = BaseDocument()
         document.properties = map
         return collection.insertDocument(document).get().key
     }
 
-    fun removeScript(key: String) {
+    fun removeMetric(key: String) {
         collection.deleteDocument(key)
-    }
-
-    fun updateScript(json: String): String {
-        val map = objectMapper.readValue<Map<String, Any>>(json)
-        val document = BaseDocument()
-        document.properties = map
-        return collection.updateDocument(map[Fields.KEY.text] as String, document).get().key
     }
 }
