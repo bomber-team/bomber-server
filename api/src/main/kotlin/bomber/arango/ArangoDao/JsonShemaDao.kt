@@ -1,8 +1,6 @@
 package bomber.arango.ArangoDao
 
-import com.arangodb.ArangoCollectionAsync
-import com.arangodb.ArangoDBAsync
-import com.arangodb.ArangoDatabaseAsync
+import com.arangodb.*
 import com.arangodb.entity.BaseDocument
 import com.arangodb.model.AqlQueryOptions
 import com.arangodb.util.MapBuilder
@@ -18,7 +16,7 @@ class JsonShemaDao {
         private const val DB_NAME = "bomber"
         private const val COLLECTION_NAME = "jsonRest"
 
-        private const val SELECT_QUERY = "FOR document in jsonRestCollection LIMIT @@offset @@limit return t"
+        private const val SELECT_QUERY = "FOR document in jsonRestCollection LIMIT @offset @limit return t"
     }
 
     private var arangoDb: ArangoDBAsync = ArangoDBAsync.Builder().host("localhost", 8529).build()
@@ -28,26 +26,26 @@ class JsonShemaDao {
 
     init {
         if (!arangoDb.databases.get().contains(DB_NAME)) {
-            arangoDb.createDatabase(DB_NAME).get()
+            arangoDb.createDatabase(DB_NAME)
         }
         db = arangoDb.db(DB_NAME)
         val collectionNames = db.collections.get().map { it.name }
         if (!collectionNames.contains(COLLECTION_NAME)) {
-            db.createCollection(COLLECTION_NAME).get()
+            db.createCollection(COLLECTION_NAME)
         }
         collection = db.collection(COLLECTION_NAME)
     }
 
     private enum class VarFields(val text: String) {
-        Limit("@limit"), Offset("@offset"),
+        Limit("limit"), Offset("offset"),
         Key("key")
     }
 
     /**
      * Get shema by id
      */
-    fun getScheme(id: String): String {
-        val document = collection.getDocument(id, BaseDocument::class.java).get()
+    fun getScheme(id: String): String? {
+        val document = collection.getDocument(id, BaseDocument::class.java).getNow(null) ?: return null
 
         val map = document.properties
         map[VarFields.Key.text] = document.key
@@ -62,11 +60,12 @@ class JsonShemaDao {
      * @param limit - maximum documents to return
      * @return - string with array of json's objects
      */
-    fun getAllShemas(offset: Int, limit: Int): String {
+    fun getAllShemas(offset: Int, limit: Int): String? {
         val builder = MapBuilder().put(VarFields.Offset.text, offset)
                 .put(VarFields.Limit.text, limit).get()
 
-        val cursorAsync = db.query(SELECT_QUERY, builder, AqlQueryOptions(), BaseDocument::class.java).get()
+        val cursorAsync = db.query(SELECT_QUERY, builder, AqlQueryOptions(), BaseDocument::class.java)
+                .getNow(null) ?: return null
 
         val list = mutableListOf<BaseDocument>()
         cursorAsync.collectInto(list)

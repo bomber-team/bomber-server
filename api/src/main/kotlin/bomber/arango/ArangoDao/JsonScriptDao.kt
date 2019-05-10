@@ -1,8 +1,6 @@
 package bomber.arango.ArangoDao
 
-import com.arangodb.ArangoCollectionAsync
-import com.arangodb.ArangoDBAsync
-import com.arangodb.ArangoDatabaseAsync
+import com.arangodb.*
 import com.arangodb.entity.BaseDocument
 import com.arangodb.model.AqlQueryOptions
 import com.arangodb.util.MapBuilder
@@ -19,7 +17,11 @@ class JsonScriptDao {
         private const val DB_NAME = "bomber"
         private const val COLLECTION_NAME = "jsonScripts"
 
-        private const val SELECT_QUERY = "FOR document in jsonScripts LIMIT @@offset @@limit return t"
+        private  val SELECT_QUERY ="""
+            FOR document in jsonScripts
+                LIMIT @offset, @limit
+                return document
+        """.trimIndent()
     }
 
     private var arangoDb: ArangoDBAsync = ArangoDBAsync.Builder().host("localhost", 8529).build()
@@ -29,24 +31,24 @@ class JsonScriptDao {
 
     init {
         if (!arangoDb.databases.get().contains(DB_NAME)) {
-            arangoDb.createDatabase(DB_NAME).get()
+            arangoDb.createDatabase(DB_NAME)
         }
         db = arangoDb.db(DB_NAME)
-
         val collectionNames = db.collections.get().map { it.name }
         if (!collectionNames.contains(COLLECTION_NAME)) {
-            db.createCollection(COLLECTION_NAME).get()
+            db.createCollection(COLLECTION_NAME)
         }
         collection = db.collection(COLLECTION_NAME)
     }
 
     private enum class VarField(val text: String) {
-        LIMIT("@limit"), OFFSET("@offset"),
+        LIMIT("limit"), OFFSET("offset"),
         KEY("key")
     }
 
-    fun getScript(id: String): String {
-        val document = collection.getDocument(id, BaseDocument::class.java).get()
+    fun getScript(id: String): String? {
+        val document: BaseDocument?
+        document = collection.getDocument(id, BaseDocument::class.java).get() ?: return null
 
         val map = document.properties
         map[VarField.KEY.text] = document.key
@@ -55,19 +57,20 @@ class JsonScriptDao {
         return mapper.writeValueAsString(map)
     }
 
-    fun getAllScripts(offset: Int, limit: Int): String {
-        val builder = MapBuilder().put(VarField.OFFSET.text, offset)
+    fun getAllScripts(offset: Int, limit: Int): String? {
+        val builder = MapBuilder()
+                .put(VarField.OFFSET.text, offset)
                 .put(VarField.LIMIT.text, limit).get()
-
-        val cursorAsync = db.query(SELECT_QUERY, builder, AqlQueryOptions(), BaseDocument::class.java).get()
+        val cursor: ArangoCursorAsync<BaseDocument>?
+        cursor = db.query(SELECT_QUERY, builder, AqlQueryOptions(), BaseDocument::class.java).get() ?: return null
 
         val list = mutableListOf<BaseDocument>()
-        cursorAsync.collectInto(list)
+        cursor.collectInto(list)
 
         val listOfMaps = list.map {
             val map = it.properties
             map[VarField.KEY.text] = it.key
-            objectMapper.writeValueAsString(map)
+            map
         }
         return objectMapper.writeValueAsString(listOfMaps)
     }
