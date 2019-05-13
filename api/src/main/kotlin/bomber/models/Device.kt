@@ -1,5 +1,7 @@
 package bomber.models
 
+import java.sql.Date
+import java.sql.Timestamp
 import javax.persistence.*
 
 @Entity
@@ -15,4 +17,7 @@ class Device {
 
     @Column(name = "name", nullable = false)
     lateinit var name: String
+
+    @Column(name = "lastActivity", nullable = false)
+    lateinit var lastActivity: Timestamp
 }

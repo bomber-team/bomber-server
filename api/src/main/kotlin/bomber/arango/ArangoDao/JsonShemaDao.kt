@@ -14,9 +14,9 @@ import com.fasterxml.jackson.module.kotlin.readValue
 class JsonShemaDao {
     companion object {
         private const val DB_NAME = "bomber"
-        private const val COLLECTION_NAME = "jsonRest"
+        private const val COLLECTION_NAME = "jsonRestSchema"
 
-        private const val SELECT_QUERY = "FOR document in jsonRestCollection LIMIT @offset @limit return t"
+        private const val SELECT_QUERY = "FOR document in jsonRestSchema LIMIT @offset, @limit return document"
     }
 
     private var arangoDb: ArangoDBAsync = ArangoDBAsync.Builder().host("localhost", 8529).build()
