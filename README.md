@@ -9,6 +9,19 @@ Modules of web in react
 
 And module of web-server
 
+### Build and Run executable
+
+1 Run command
+````
+gradle build
+````
+2 Go to ./api/build/libs/
+
+3 Run
+````
+java -jar name.jar
+````
+
 ### Run
 
 1 run docker image of postgres docker run 

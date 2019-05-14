@@ -17,6 +17,7 @@ allOpen {
 }
 
 version '1.0-SNAPSHOT'
+mainClassName='bomber.ApplicationKt'
 
 repositories {
     mavenCentral()
@@ -57,7 +58,6 @@ dependencies {
     
     testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.1.4.RELEASE'
     testCompile group: 'org.testcontainers', name: 'testcontainers', version: '1.11.2'
-    testCompile group: 'org.springframework', name: 'spring-test-junit5', version: '1.4.0'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.2'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.2'
 
@@ -66,18 +66,10 @@ dependencies {
 
 }
 compileJava.dependsOn(processResources)
-test {
-    useJUnitPlatform {
-        includeEngines 'junit-jupiter'
-    }
-}
 
 compileKotlin {
-
-//    freeCompilerArgs = ["-Xjsr305=strict"]
     kotlinOptions.jvmTarget = "1.8"
 }
 compileTestKotlin {
-//    freeCompilerArgs = ["-Xjsr305=strict"]
     kotlinOptions.jvmTarget = "1.8"
 }
