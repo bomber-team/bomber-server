@@ -17,7 +17,7 @@ class JsonScriptDao {
         private const val DB_NAME = "bomber"
         private const val COLLECTION_NAME = "jsonScripts"
 
-        private  val SELECT_QUERY ="""
+        private val SELECT_QUERY = """
             FOR document in jsonScripts
                 LIMIT @offset, @limit
                 return document
@@ -42,14 +42,19 @@ class JsonScriptDao {
     }
 
     fun getScript(key: String): String? {
+        val map = getScriptAsMap(key)
+
+        val mapper = ObjectMapper()
+        return mapper.writeValueAsString(map)
+    }
+
+    fun getScriptAsMap(key: String): MutableMap<String, Any>? {
         val document: BaseDocument?
         document = collection.getDocument(key, BaseDocument::class.java).get() ?: return null
 
         val map = document.properties
         map[Fields.KEY.text] = document.key
-
-        val mapper = ObjectMapper()
-        return mapper.writeValueAsString(map)
+        return map
     }
 
     fun getAllScripts(offset: Int, limit: Int): String? {
