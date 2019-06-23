@@ -47,7 +47,7 @@ dependencies {
 
     compile group: 'com.arangodb', name: 'arangodb-java-driver-async', version: '5.0.4'
 
-    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    compile group: 'org.springframework', name: 'spring-websocket', version: '5.1.7.RELEASE'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.6.0'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'

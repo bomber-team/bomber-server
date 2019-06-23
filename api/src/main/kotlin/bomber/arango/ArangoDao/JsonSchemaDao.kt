@@ -11,7 +11,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
  * This dao is responsible for crud operation scenarious
  * @author kostya05983
  */
-class JsonShemaDao {
+class JsonSchemaDao {
     companion object {
         private const val DB_NAME = "bomber"
         private const val COLLECTION_NAME = "jsonRestSchema"
@@ -37,7 +37,7 @@ class JsonShemaDao {
     }
 
     /**
-     * Get shema by key
+     * Get schema by key
      */
     fun getScheme(key: String): String? {
         val document = collection.getDocument(key, BaseDocument::class.java).getNow(null) ?: return null

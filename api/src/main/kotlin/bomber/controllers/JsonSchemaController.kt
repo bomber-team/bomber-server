@@ -1,6 +1,6 @@
 package bomber.controllers
 
-import bomber.arango.ArangoDao.JsonShemaDao
+import bomber.arango.ArangoDao.JsonSchemaDao
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
  * @author kostya05983
  */
 @RestController
-class JsonShemaController {
+class JsonSchemaController {
 
     companion object {
         private const val API = "/jsonSchema"
@@ -18,7 +18,7 @@ class JsonShemaController {
     /**
      * Dao for connect to db
      */
-    private val jsonDao: JsonShemaDao = JsonShemaDao()
+    private val jsonDao: JsonSchemaDao = JsonSchemaDao()
 
     /**
      * Get scenario with requested key
