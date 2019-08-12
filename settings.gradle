@@ -1,2 +1,4 @@
 rootProject.name = 'Server-bomber'
-include 'api', 'config'
+include 'api'
+include 'config'
+include 'arango-config-server'
