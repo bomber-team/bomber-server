@@ -63,7 +63,7 @@ dependencies {
 
     kapt("org.springframework.boot:spring-boot-configuration-processor")
     configurations.kapt.extendsFrom(configurations.compileOnly)
-
+    test.useJUnitPlatform()
 }
 compileJava.dependsOn(processResources)
 
