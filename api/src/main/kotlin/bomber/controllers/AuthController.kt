@@ -35,7 +35,6 @@ class AuthController {
         const val SIGN_UP = "signup"
     }
 
-
     @Autowired
     private val authenticationManager: AuthenticationManager? = null
 
