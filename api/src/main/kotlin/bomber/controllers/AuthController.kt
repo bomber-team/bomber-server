@@ -7,7 +7,7 @@ import bomber.payload.ApiResponse
 import bomber.payload.AuthResponse
 import bomber.payload.LoginRequest
 import bomber.payload.SignUpRequest
-import bomber.repository.UserRepository
+import bomber.repository.IUserRepository
 import bomber.security.TokenProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -39,7 +39,7 @@ class AuthController {
     private val authenticationManager: AuthenticationManager? = null
 
     @Autowired
-    private val userRepository: UserRepository? = null
+    private val IUserRepository: IUserRepository? = null
 
     @Autowired
     private val passwordEncoder: PasswordEncoder? = null
@@ -64,7 +64,7 @@ class AuthController {
 
     @PostMapping(SIGN_UP)
     fun registerUser(@Valid @RequestBody signUpRequest: SignUpRequest): ResponseEntity<*> {
-        if (userRepository!!.existsByEmail(signUpRequest.getEmail()!!)!!) {
+        if (IUserRepository!!.existsByEmail(signUpRequest.getEmail()!!)!!) {
             throw BadRequestException("Email address already in use.")
         }
 
@@ -77,7 +77,7 @@ class AuthController {
 
         user.password = passwordEncoder!!.encode(user.password)
 
-        val result = userRepository.save(user)
+        val result = IUserRepository.save(user)
 
         val location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/user/me")

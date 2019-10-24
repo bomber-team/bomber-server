@@ -1,14 +1,20 @@
 package bomber.repository
 
 import bomber.models.User
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Component
 import java.util.*
 
-@Repository
-interface UserRepository : JpaRepository<User, Long> {
+@Component
+class UserRepository : IUserRepository {
+    override suspend fun findById(id: Long): Optional<User> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    fun findByEmail(email: String): Optional<User>
+    override suspend fun findByEmail(email: String): Optional<User> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    fun existsByEmail(email: String): Boolean?
+    override suspend fun existsByEmail(email: String): Boolean? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
