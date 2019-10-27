@@ -8,37 +8,32 @@ import org.springframework.web.bind.annotation.*
  * describing the  restful test
  */
 @RestController
+@RequestMapping(
+    value = ["/bomber/bomber-api/v1/scenario"]
+)
 class JsonScriptController {
-    companion object {
-        private const val API = "/jsonScript"
-        private const val API_ALL = "/jsonScriptAll"
+    @GetMapping(value = ["/{id}"])
+    fun getScript(@RequestParam id: String): String? {
+        TODO()
     }
 
-    private val jsonScriptDao = JsonScriptDao()
-
-    @RequestMapping(API, method = [RequestMethod.GET])
-    fun getScript(@RequestParam("id") id: String): String? {
-        return jsonScriptDao.getScript(id)
-    }
-
-    @RequestMapping(API_ALL, method = [RequestMethod.GET])
+    @GetMapping
     fun getScriptAll(@RequestParam("offset") offset: Int, limit: Int): String? {
-        return jsonScriptDao.getAllScripts(offset, limit)
+        TODO()
     }
 
-    @RequestMapping(API, method = [RequestMethod.POST])
+    @PostMapping
     fun createScript(@RequestBody json: String): String {
-        return jsonScriptDao.insertScript(json)
+        TODO()
     }
 
-    @RequestMapping(API, method = [RequestMethod.PUT])
+    @PutMapping
     fun updateScript(@RequestBody json: String): String {
-        return jsonScriptDao.updateScript(json)
+        TODO()
     }
 
-    @RequestMapping(API, method = [RequestMethod.DELETE])
-    fun deleteScript(@RequestParam("id") id: String): String {
-        jsonScriptDao.removeScript(id)
-        return "Success"
+    @DeleteMapping(value = ["/{id}"])
+    fun deleteScript(@RequestParam id: String): String {
+        TODO()
     }
 }

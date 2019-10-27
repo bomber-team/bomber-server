@@ -12,7 +12,7 @@ import javax.validation.Valid
  */
 @RestController
 @RequestMapping(
-    value = ["/bomber/metrics/v1/metric"]
+    value = ["/bomber/bomber-api/v1/metric"]
 )
 class JsonMetricController {
 

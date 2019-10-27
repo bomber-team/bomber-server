@@ -10,7 +10,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping(
-    value = ["/bomber/test-form-api/v1/forms"]
+    value = ["/bomber/bomber-api/v1/forms"]
 )
 class TestFormController {
 

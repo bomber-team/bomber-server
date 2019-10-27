@@ -1,6 +1,5 @@
 package bomber.controllers
 
-import bomber.arango.ArangoDao.JsonSchemaDao
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -8,54 +7,35 @@ import org.springframework.web.bind.annotation.*
  * @author kostya05983
  */
 @RestController
+@RequestMapping(
+    value = ["/bomber/bomber-api/v1/schema"]
+)
 class JsonSchemaController {
-
-    companion object {
-        private const val API = "/jsonSchema"
-        private const val API_ALL = "/jsonSchemaAll"
+    @GetMapping(value = ["/{id}"])
+    fun getScenario(@PathVariable id: String): String? {
+        TODO("")
     }
 
-    /**
-     * Dao for connect to db
-     */
-    private val jsonDao: JsonSchemaDao = JsonSchemaDao()
-
-    /**
-     * Get scenario with requested key
-     */
-    @RequestMapping(API, method = [RequestMethod.GET])
-    fun getScenario(@RequestParam(name = "id") id: String): String? {
-        return jsonDao.getScheme(id)
+    @GetMapping
+    fun getSchemes(
+        @RequestParam("offset") offset: Int,
+        @RequestParam("limit") limit: Int
+    ): String {
+        TODO()
     }
 
-    @RequestMapping(API_ALL, method = [RequestMethod.GET])
-    fun getSchemes(@RequestParam("offset") offset: Int, @RequestParam("limit") limit: Int): String? {
-        return jsonDao.getAllShemas(offset, limit)
-    }
-
-    /**
-     * Insert a new scenario to arango collection and return  key of new documentl
-     */
-    @RequestMapping(API, method = [RequestMethod.POST])
+    @PostMapping
     fun createScenario(@RequestBody json: String): String {
-        return jsonDao.insertShema(json)
+        TODO()
     }
 
-    /**
-     * Update scenario which is imagined as document with request body
-     */
-    @RequestMapping(API, method = [RequestMethod.PUT])
+    @PutMapping
     fun updateScenario(@RequestBody json: String): String {
-        return jsonDao.updateShema(json)
+        TODO("")
     }
 
-    /**
-     * Delete scenario with key equals id, we don't have reverse connection
-     * we need to fix it
-     */
-    @RequestMapping(API, method = [RequestMethod.DELETE])
-    fun deleteScenario(@RequestParam("id") id: String): String {
-        deleteScenario(id)
+    @DeleteMapping(value = ["/{id}"])
+    fun deleteScenario(@PathVariable id: String): String {
         return "maybe delete heh"
     }
 }
