@@ -1,6 +1,6 @@
-package bomber.dto
+package bomber.dto.scenario
 
-data class RestPipelineConfiguration(
+data class RestPipelineConfigurationDTO(
     val replay: Long,
     val replayAfterFailed: Boolean,
     val replayAfterTimeout: Long

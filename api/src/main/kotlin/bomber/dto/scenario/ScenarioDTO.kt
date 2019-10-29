@@ -1,4 +1,4 @@
-package bomber.dto
+package bomber.dto.scenario
 
 sealed class ScenarioDTO
 
@@ -7,5 +7,5 @@ data class RestScenario(
     val scheme: String,
     val address: String,
     val requestMethod: String,
-    val configuration: RestConfiguration
+    val configuration: RestConfigurationDTO
 ) : ScenarioDTO()

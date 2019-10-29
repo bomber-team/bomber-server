@@ -1,8 +1,8 @@
-package bomber.dto
+package bomber.dto.scenario
 
 import org.codehaus.jackson.annotate.JsonProperty
 
-data class RestConfiguration(
+data class RestConfigurationDTO(
     val amountRequest: Long,
     @field: JsonProperty("timeout_one_request")
     val timeoutOneRequest: Long,
