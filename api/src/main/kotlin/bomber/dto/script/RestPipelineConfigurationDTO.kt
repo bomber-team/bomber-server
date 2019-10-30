@@ -1,4 +1,4 @@
-package bomber.dto.scenario
+package bomber.dto.script
 
 data class RestPipelineConfigurationDTO(
     val replay: Long,
