@@ -1,6 +1,6 @@
 package bomber.dto
 
-import org.codehaus.jackson.annotate.JsonProperty
+import com.fasterxml.jackson.annotation.JsonProperty
 
 enum class StatusFormDTO {
     @JsonProperty("new")

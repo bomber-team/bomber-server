@@ -13,83 +13,83 @@ import com.fasterxml.jackson.module.kotlin.readValue
  * @author kostya05983
  */
 class JsonScriptDao {
-    companion object {
-        private const val DB_NAME = "bomber"
-        private const val COLLECTION_NAME = "jsonScripts"
-
-        private val SELECT_QUERY = """
-            FOR document in jsonScripts
-                LIMIT @offset, @limit
-                return document
-        """.trimIndent()
-    }
-
-    private var arangoDb: ArangoDBAsync = ArangoDBAsync.Builder().host("localhost", 8529).build()
-    private var db: ArangoDatabaseAsync
-    private var collection: ArangoCollectionAsync
-    private val objectMapper = ObjectMapper()
-
-    init {
-        if (!arangoDb.databases.get().contains(DB_NAME)) {
-            arangoDb.createDatabase(DB_NAME)
-        }
-        db = arangoDb.db(DB_NAME)
-        val collectionNames = db.collections.get().map { it.name }
-        if (!collectionNames.contains(COLLECTION_NAME)) {
-            db.createCollection(COLLECTION_NAME)
-        }
-        collection = db.collection(COLLECTION_NAME)
-    }
-
-    fun getScript(key: String): String? {
-        val map = getScriptAsMap(key)
-
-        val mapper = ObjectMapper()
-        return mapper.writeValueAsString(map)
-    }
-
-    fun getScriptAsMap(key: String): MutableMap<String, Any>? {
-        val document: BaseDocument?
-        document = collection.getDocument(key, BaseDocument::class.java).get() ?: return null
-
-        val map = document.properties
-        map[Fields.KEY.text] = document.key
-        return map
-    }
-
-    fun getAllScripts(offset: Int, limit: Int): String? {
-        val builder = MapBuilder()
-                .put(Fields.OFFSET.text, offset)
-                .put(Fields.LIMIT.text, limit).get()
-        val cursor: ArangoCursorAsync<BaseDocument>?
-        cursor = db.query(SELECT_QUERY, builder, AqlQueryOptions(), BaseDocument::class.java).get() ?: return null
-
-        val list = mutableListOf<BaseDocument>()
-        cursor.collectInto(list)
-
-        val listOfMaps = list.map {
-            val map = it.properties
-            map[Fields.KEY.text] = it.key
-            map
-        }
-        return objectMapper.writeValueAsString(listOfMaps)
-    }
-
-    fun insertScript(json: String): String {
-        val map = objectMapper.readValue<Map<String, Any>>(json)
-        val document = BaseDocument()
-        document.properties = map
-        return collection.insertDocument(document).get().key
-    }
-
-    fun removeScript(key: String) {
-        collection.deleteDocument(key)
-    }
-
-    fun updateScript(json: String): String {
-        val map = objectMapper.readValue<Map<String, Any>>(json)
-        val document = BaseDocument()
-        document.properties = map
-        return collection.updateDocument(map[Fields.KEY.text] as String, document).get().key
-    }
+//    companion object {
+//        private const val DB_NAME = "bomber"
+//        private const val COLLECTION_NAME = "jsonScripts"
+//
+//        private val SELECT_QUERY = """
+//            FOR document in jsonScripts
+//                LIMIT @offset, @limit
+//                return document
+//        """.trimIndent()
+//    }
+//
+//    private var arangoDb: ArangoDBAsync = ArangoDBAsync.Builder().host("localhost", 8529).build()
+//    private var db: ArangoDatabaseAsync
+//    private var collection: ArangoCollectionAsync
+//    private val objectMapper = ObjectMapper()
+//
+//    init {
+////        if (!arangoDb.databases.get().contains(DB_NAME)) {
+////            arangoDb.createDatabase(DB_NAME)
+////        }
+////        db = arangoDb.db(DB_NAME)
+////        val collectionNames = db.collections.get().map { it.name }
+////        if (!collectionNames.contains(COLLECTION_NAME)) {
+////            db.createCollection(COLLECTION_NAME)
+////        }
+////        collection = db.collection(COLLECTION_NAME)
+//    }
+//
+//    fun getScript(key: String): String? {
+//        val map = getScriptAsMap(key)
+//
+//        val mapper = ObjectMapper()
+//        return mapper.writeValueAsString(map)
+//    }
+//
+//    fun getScriptAsMap(key: String): MutableMap<String, Any>? {
+//        val document: BaseDocument?
+//        document = collection.getDocument(key, BaseDocument::class.java).get() ?: return null
+//
+//        val map = document.properties
+//        map[Fields.KEY.text] = document.key
+//        return map
+//    }
+//
+//    fun getAllScripts(offset: Int, limit: Int): String? {
+//        val builder = MapBuilder()
+//                .put(Fields.OFFSET.text, offset)
+//                .put(Fields.LIMIT.text, limit).get()
+//        val cursor: ArangoCursorAsync<BaseDocument>?
+//        cursor = db.query(SELECT_QUERY, builder, AqlQueryOptions(), BaseDocument::class.java).get() ?: return null
+//
+//        val list = mutableListOf<BaseDocument>()
+//        cursor.collectInto(list)
+//
+//        val listOfMaps = list.map {
+//            val map = it.properties
+//            map[Fields.KEY.text] = it.key
+//            map
+//        }
+//        return objectMapper.writeValueAsString(listOfMaps)
+//    }
+//
+//    fun insertScript(json: String): String {
+//        val map = objectMapper.readValue<Map<String, Any>>(json)
+//        val document = BaseDocument()
+//        document.properties = map
+//        return collection.insertDocument(document).get().key
+//    }
+//
+//    fun removeScript(key: String) {
+//        collection.deleteDocument(key)
+//    }
+//
+//    fun updateScript(json: String): String {
+//        val map = objectMapper.readValue<Map<String, Any>>(json)
+//        val document = BaseDocument()
+//        document.properties = map
+//        return collection.updateDocument(map[Fields.KEY.text] as String, document).get().key
+//    }
 }
