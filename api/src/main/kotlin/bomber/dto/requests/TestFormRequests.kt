@@ -1,4 +1,6 @@
-package bomber.dto
+package bomber.dto.requests
+
+import bomber.dto.StatusFormDTO
 
 class CreateRequest {
 }

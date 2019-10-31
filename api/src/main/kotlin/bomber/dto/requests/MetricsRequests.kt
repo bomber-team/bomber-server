@@ -1,4 +1,4 @@
-package bomber.dto
+package bomber.dto.requests
 
 data class CreateMetricRequest(
     val name: String,

@@ -1,4 +1,4 @@
-package bomber.dto
+package bomber.dto.requests
 
 class CreateResultRequest(
     val name: String,
