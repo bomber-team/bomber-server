@@ -8,7 +8,7 @@ sealed class BodyParamDTO(
     val config: GeneratorConfigDTO?
 )
 
-class SimpleBodyParamDTO<T>(
+class SimplePropertyDTO<T>(
     name: String,
     type: BodyParamTypeDTO,
     isGenerated: Boolean?,
@@ -28,7 +28,7 @@ class ListPropertyDTO<T>(
     isGenerated: Boolean?,
     generatorType: GeneratorTypeDTO?,
     config: GeneratorConfigDTO?,
-    val value: List<SimpleBodyParamDTO<T>>
+    val value: List<SimplePropertyDTO<T>>
 ) : BodyParamDTO(
     name,
     type = BodyParamTypeDTO.LIST,

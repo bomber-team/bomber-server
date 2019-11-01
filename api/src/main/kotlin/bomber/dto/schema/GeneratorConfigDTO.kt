@@ -4,7 +4,7 @@ package bomber.dto.schema
 sealed class GeneratorConfigDTO
 
 data class WordGeneratorConfigDTO(
-    val minLetters: Long,
-    val maxLetters: Long,
+    val minLetters: Int,
+    val maxLetters: Int,
     val alphabet: String
 ) : GeneratorConfigDTO()
