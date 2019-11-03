@@ -1,5 +1,8 @@
 package bomber.dto.schema
 
 enum class GeneratorTypeDTO {
-    WORD_GENERATOR
+    WORD_GENERATOR,
+    PASSWORD_GENERATOR,
+    IP_GENERATOR,
+    REGEXP_GENERATOR
 }
