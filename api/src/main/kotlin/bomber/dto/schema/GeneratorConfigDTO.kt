@@ -9,16 +9,16 @@ data class WordGeneratorConfigDTO(
 ) : GeneratorConfigDTO()
 
 data class IpGeneratorConfig(
-    val firstSection: IpSection,
-    val secondSection: IpSection,
-    val thirdSection: IpSection,
-    val fourthSection: IpSection
+    val firstSection: IpSectionDTO,
+    val secondSection: IpSectionDTO,
+    val thirdSection: IpSectionDTO,
+    val fourthSection: IpSectionDTO
 ) : GeneratorConfigDTO()
 
 data class PasswordGeneratorConfig(
     val minLetters: Int,
     val maxLetters: Int,
-    val language: Language
+    val language: LanguageDTO
 ) : GeneratorConfigDTO()
 
 data class RegexpConfig(

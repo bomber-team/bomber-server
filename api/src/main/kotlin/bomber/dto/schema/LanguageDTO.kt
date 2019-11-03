@@ -1,6 +1,6 @@
 package bomber.dto.schema
 
-enum class Language {
+enum class LanguageDTO {
     RU,
     EN
 }

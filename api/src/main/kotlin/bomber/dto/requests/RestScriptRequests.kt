@@ -1,12 +1,11 @@
-package bomber.dto.script
+package bomber.dto.requests
 
-sealed class ScriptDTO
+import bomber.dto.script.RestConfigurationDTO
 
-data class RestScriptDTO(
-    val id: String,
+data class CreateScriptRequest(
     val schemeId: String,
     val name: String,
     val address: String,
     val requestMethod: String,
     val configuration: RestConfigurationDTO
-) : ScriptDTO()
+)

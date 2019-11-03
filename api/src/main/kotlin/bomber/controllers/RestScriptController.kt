@@ -1,7 +1,10 @@
 package bomber.controllers
 
-import bomber.dto.script.RestScriptPipelineDTO
-import bomber.dto.script.RestScriptPipelineItemsDTO
+import bomber.dto.requests.CreateScriptRequest
+import bomber.dto.script.RestScriptDTO
+import bomber.dto.script.RestScriptItemsDTO
+import bomber.service.rest.script.ScriptService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -12,32 +15,39 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping(
     value = ["/bomber/bomber-api/script/v1"]
 )
-class RestScriptController {
-    @PostMapping("/{id}")
-    suspend fun createScript(@PathVariable id: String, @RequestBody json: String): ResponseEntity<RestScriptPipelineDTO> {
-        TODO()
+class RestScriptController(
+    private val scriptService: ScriptService
+) {
+    @PostMapping
+    suspend fun createScript(@RequestBody request: CreateScriptRequest): ResponseEntity<RestScriptDTO> {
+        val script = scriptService.createScript(request)
+        return ResponseEntity.status(HttpStatus.CREATED).body(script)
     }
 
     @PutMapping
-    suspend fun updateScript(@RequestBody json: String): ResponseEntity<RestScriptPipelineDTO> {
-        TODO()
+    suspend fun updateScript(@RequestBody updateRequest: RestScriptDTO): ResponseEntity<RestScriptDTO> {
+        val script = scriptService.updateScript(updateRequest)
+        return ResponseEntity.status(HttpStatus.OK).body(script)
     }
 
     @GetMapping(value = ["/{id}"])
-    suspend fun getScript(@RequestParam id: String): ResponseEntity<RestScriptPipelineDTO> {
-        TODO()
+    suspend fun getScript(@RequestParam id: String): ResponseEntity<RestScriptDTO> {
+        val script = scriptService.getScript(id)
+        return ResponseEntity.status(HttpStatus.OK).body(script)
     }
 
     @GetMapping
     suspend fun getScriptAll(
         @RequestParam("offset") offset: Int,
         @RequestParam("limit") limit: Int
-    ): ResponseEntity<RestScriptPipelineItemsDTO> {
-        TODO()
+    ): ResponseEntity<RestScriptItemsDTO> {
+        val scriptItems = scriptService.getScriptAll(offset, limit)
+        return ResponseEntity.status(HttpStatus.OK).body(scriptItems)
     }
 
     @DeleteMapping(value = ["/{id}"])
-    suspend fun deleteScript(@RequestParam id: String): ResponseEntity<RestScriptPipelineDTO> {
-        TODO()
+    suspend fun deleteScript(@RequestParam id: String): ResponseEntity<RestScriptDTO> {
+        val deleted = scriptService.deleteScript(id)
+        return ResponseEntity.status(HttpStatus.OK).body(deleted)
     }
 }
