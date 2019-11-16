@@ -34,6 +34,7 @@ dependencies {
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.1.Final'
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
     implementation group: 'com.arangodb', name: 'arangodb-java-driver-async', version: '5.0.4'
+    implementation 'com.arangodb:arangodb-spring-data:3.2.3'
 
     //serialization
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.6.0'
