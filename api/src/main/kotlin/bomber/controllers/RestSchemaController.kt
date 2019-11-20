@@ -1,5 +1,7 @@
 package bomber.controllers
 
+import bomber.dto.requests.CreateRestSchemaRequest
+import bomber.dto.requests.UpdateRestSchemaRequest
 import bomber.dto.schema.RestSchemaDTO
 import bomber.dto.schema.RestSchemaItemsDTO
 import bomber.service.rest.schema.RestSchemaService
@@ -17,19 +19,25 @@ import org.springframework.web.bind.annotation.*
 class RestSchemaController(
     private val restSchemaService: RestSchemaService
 ) {
-    @PostMapping("/{id1}")
-    suspend fun createSchema(@RequestBody json: String): ResponseEntity<RestSchemaDTO> {
-        TODO()
+    @PostMapping
+    suspend fun createSchema(@RequestBody request: CreateRestSchemaRequest): ResponseEntity<RestSchemaDTO> {
+        val result = restSchemaService.createSchema(request)
+        return ResponseEntity.ok(result)
     }
 
     @PutMapping("/{id}")
-    suspend fun updateSchema(@RequestBody json: String): ResponseEntity<RestSchemaDTO> {
-        TODO("")
+    suspend fun updateSchema(
+        @PathVariable id: String,
+        @RequestBody request: UpdateRestSchemaRequest
+    ): ResponseEntity<RestSchemaDTO> {
+        val result = restSchemaService.updateSchema(id, request)
+        return ResponseEntity.ok(result)
     }
 
     @GetMapping(value = ["/{id}"])
     suspend fun getSchema(@PathVariable id: String): ResponseEntity<RestSchemaDTO> {
-        TODO("")
+        val result = restSchemaService.getSchema(id)
+        return ResponseEntity.ok(result)
     }
 
     @GetMapping
@@ -37,11 +45,13 @@ class RestSchemaController(
         @RequestParam("offset") offset: Int,
         @RequestParam("limit") limit: Int
     ): ResponseEntity<RestSchemaItemsDTO> {
-        TODO()
+        val result = restSchemaService.getSchemes(offset, limit)
+        return ResponseEntity.ok(result)
     }
 
     @DeleteMapping(value = ["/{id}"])
     suspend fun deleteSchema(@PathVariable id: String): ResponseEntity<RestSchemaDTO> {
-        TODO()
+        val result = restSchemaService.deleteSchema(id)
+        return ResponseEntity.ok(result)
     }
 }

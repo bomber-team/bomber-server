@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service
  *
  */
 @Service
-class ScriptServiceImpl : ScriptService {
+class ScriptServiceImpl(
+
+) : ScriptService {
     override suspend fun createScript(request: CreateScriptRequest): RestScriptDTO {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

@@ -1,7 +1,10 @@
 package bomber.models.schema
 
+import com.arangodb.springframework.annotation.Document
+
 sealed class Schema
 
+@Document(value = "jsonRestSchema")
 data class RestSchema(
     val id: String,
     val pathVariables: Map<String, String>,

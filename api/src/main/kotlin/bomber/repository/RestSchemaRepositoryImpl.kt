@@ -2,17 +2,21 @@ package bomber.repository
 
 import bomber.models.schema.RestSchema
 import com.arangodb.springframework.core.template.ArangoTemplate
+import org.slf4j.LoggerFactory
 
 class RestSchemaRepositoryImpl(
     private val arangoTemplate: ArangoTemplate
 ) : RestSchemaRepository {
+    private val logger = LoggerFactory.getLogger(this::class.java)
 
     override suspend fun saveSchema(restSchema: RestSchema): RestSchema {
-
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val result = arangoTemplate.insert(restSchema)
+        logger.debug("Insert restSchema, result log=$result")
+        return restSchema
     }
 
     override suspend fun getSchema(id: String): RestSchema? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val result = arangoTemplate.find(id, RestSchema::class.java)
+        return result.orElse(null)
     }
 }
