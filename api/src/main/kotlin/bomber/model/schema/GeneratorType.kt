@@ -1,4 +1,4 @@
-package bomber.models.schema
+package bomber.model.schema
 
 enum class GeneratorType {
     WORD_GENERATOR,

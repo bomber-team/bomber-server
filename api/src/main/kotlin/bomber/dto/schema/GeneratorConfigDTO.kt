@@ -8,19 +8,19 @@ data class WordGeneratorConfigDTO(
     val alphabet: String
 ) : GeneratorConfigDTO()
 
-data class IpGeneratorConfig(
+data class IpGeneratorConfigDTO(
     val firstSection: IpSectionDTO,
     val secondSection: IpSectionDTO,
     val thirdSection: IpSectionDTO,
     val fourthSection: IpSectionDTO
 ) : GeneratorConfigDTO()
 
-data class PasswordGeneratorConfig(
+data class PasswordGeneratorConfigDTO(
     val minLetters: Int,
     val maxLetters: Int,
     val language: LanguageDTO
 ) : GeneratorConfigDTO()
 
-data class RegexpConfig(
+data class RegexpConfigDTO(
     val pattern: String
 ) : GeneratorConfigDTO()

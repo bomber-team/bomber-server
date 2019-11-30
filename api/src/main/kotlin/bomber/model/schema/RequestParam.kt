@@ -1,4 +1,4 @@
-package bomber.models.schema
+package bomber.model.schema
 
 data class RequestParam(
     val name: String,

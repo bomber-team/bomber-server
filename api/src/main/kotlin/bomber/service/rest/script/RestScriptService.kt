@@ -4,7 +4,7 @@ import bomber.dto.requests.CreateScriptRequest
 import bomber.dto.script.RestScriptDTO
 import bomber.dto.script.RestScriptItemsDTO
 
-interface ScriptService {
+interface RestScriptService {
     suspend fun createScript(request: CreateScriptRequest): RestScriptDTO
 
     suspend fun updateScript(updateRequest: RestScriptDTO): RestScriptDTO

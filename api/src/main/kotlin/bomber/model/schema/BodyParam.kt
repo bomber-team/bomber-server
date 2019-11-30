@@ -1,4 +1,4 @@
-package bomber.models.schema
+package bomber.model.schema
 
 sealed class BodyParam(
     val name: String,

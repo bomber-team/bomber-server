@@ -3,7 +3,7 @@ package bomber.controllers
 import bomber.dto.requests.CreateScriptRequest
 import bomber.dto.script.RestScriptDTO
 import bomber.dto.script.RestScriptItemsDTO
-import bomber.service.rest.script.ScriptService
+import bomber.service.rest.script.RestScriptService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
     value = ["/bomber/bomber-api/script/v1"]
 )
 class RestScriptController(
-    private val scriptService: ScriptService
+    private val scriptService: RestScriptService
 ) {
     @PostMapping
     suspend fun createScript(@RequestBody request: CreateScriptRequest): ResponseEntity<RestScriptDTO> {

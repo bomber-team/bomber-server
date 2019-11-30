@@ -1,4 +1,4 @@
-package bomber.models.schema
+package bomber.model.schema
 
 import com.arangodb.springframework.annotation.Document
 

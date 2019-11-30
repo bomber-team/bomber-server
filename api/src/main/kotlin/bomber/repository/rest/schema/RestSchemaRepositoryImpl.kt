@@ -1,6 +1,6 @@
-package bomber.repository
+package bomber.repository.rest.schema
 
-import bomber.models.schema.RestSchema
+import bomber.model.schema.RestSchema
 import com.arangodb.springframework.core.ArangoOperations
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -20,5 +20,14 @@ class RestSchemaRepositoryImpl(
     override suspend fun getSchema(id: String): RestSchema? {
         val result = arangoTemplate.find(id, RestSchema::class.java)
         return result.orElse(null)
+    }
+
+    override suspend fun getSchemas(): List<RestSchema> {
+        val result = arangoTemplate.findAll(RestSchema::class.java)
+        return result.toList()
+    }
+
+    override suspend fun deleteScheme(id: String): RestSchema? {
+        TODO("not implemented")
     }
 }
