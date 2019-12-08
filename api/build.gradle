@@ -10,7 +10,7 @@ apply plugin: "application"
 apply plugin: 'idea'
 //make all class open for jpa
 version '1.0-SNAPSHOT'
-mainClassName = 'bomber.ApplicationKt'
+mainClassName = 'org.bomber.ApplicationKt'
 
 repositories {
     mavenCentral()
