@@ -6,11 +6,13 @@ plugins {
 }
 group 'Server-bomber'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: "application"
-apply plugin: 'idea'
+apply plugin: 'java'
 //make all class open for jpa
 version '1.0-SNAPSHOT'
-mainClassName = 'org.bomber.ApplicationKt'
+
+springBoot {
+    buildInfo()
+}
 
 repositories {
     mavenCentral()

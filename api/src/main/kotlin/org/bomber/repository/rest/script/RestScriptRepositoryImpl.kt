@@ -1,13 +1,13 @@
 package org.bomber.repository.rest.script
 
+import com.arangodb.springframework.core.ArangoOperations
 import org.bomber.model.script.RestScript
-import com.arangodb.springframework.core.template.ArangoTemplate
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
 class RestScriptRepositoryImpl(
-    private val arangoTemplate: ArangoTemplate
+    private val arangoTemplate: ArangoOperations
 ) : RestScriptRepository {
     private val logger = LoggerFactory.getLogger(javaClass)
 
