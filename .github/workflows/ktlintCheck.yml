@@ -1,4 +1,4 @@
-name: Ktlint Check
+name: Check Build Push
 on: push
 jobs:
   check:
@@ -8,3 +8,4 @@ jobs:
       - uses: MrRamych/gradle-actions/openjdk-11@3.1
         with:
           args: ktlintCheck
+
