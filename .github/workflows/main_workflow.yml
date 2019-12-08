@@ -1,0 +1,22 @@
+name: Check Build Push
+on: push
+jobs:
+  check:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+      - uses: MrRamych/gradle-actions/openjdk-11@3.1
+        with:
+          args: ktlintCheck
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+      - uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: myDocker/repository
+          username: bla
+          password: bla
+
+
+

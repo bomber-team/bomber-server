@@ -1,0 +1,7 @@
+org:
+  bomber:
+    team:
+      arango:
+        enabled: true
+        host: 172.17.0.2
+        database: test
