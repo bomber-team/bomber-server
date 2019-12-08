@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  bomber-server:
+    image: kostya05983/bomber-server
+    deploy:
+      replicas: 1
+    ports:
+      - target: 8080
+        published: 80
+        protocol: tcp
+        mode: host
+    networks:
+      - overlay
+    container_name: bomber-server
+    depends_on:
+      - arango-bomber
+  arango-bomber:
+    image: arangodb
+    networks:
+      - overlay
+    container_name: arango-bomber
+    environment:
+     - ARANGO_NO_AUTH=1
+
+networks:
+  overlay:

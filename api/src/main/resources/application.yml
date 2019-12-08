@@ -3,5 +3,5 @@ org:
     team:
       arango:
         enabled: true
-        host: 172.17.0.2
+        host: arango-bomber
         database: test
