@@ -9,10 +9,10 @@ jobs:
         with:
           args: ktlintCheck
       - uses: elgohr/Publish-Docker-Github-Action@master
-          with:
-            name: kostya05983/bomber-server
-            username: ${{ secrets.DOCKER_USERNAME }}
-            password: ${{ secrets.DOCKER_PASSWORD }}
-            snaphot: true
+        with:
+          name: kostya05983/bomber-server
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          snaphot: true
 
 
