@@ -1,0 +1,10 @@
+name: Ktlint Check
+on: push
+jobs:
+  check:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+      - uses: MrRamych/gradle-actions/openjdk-11@3.1
+        with:
+          args: ktlintCheck

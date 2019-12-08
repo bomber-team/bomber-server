@@ -4,7 +4,7 @@ import bomber.dto.script.RestScriptDTO
 import bomber.model.script.RestScript
 import org.springframework.core.convert.converter.Converter
 
-object RestScriptConverter: Converter<RestScriptDTO, RestScript> {
+object RestScriptConverter : Converter<RestScriptDTO, RestScript> {
     override fun convert(source: RestScriptDTO): RestScript {
         return RestScript(
             id = source.id,

@@ -30,7 +30,7 @@ class RestSchemaServiceImpl(
     }
 
     override suspend fun updateSchema(id: String, request: UpdateRestSchemaRequest): RestSchemaDTO {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun getSchema(id: String): RestSchemaDTO {

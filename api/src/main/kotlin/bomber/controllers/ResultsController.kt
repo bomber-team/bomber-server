@@ -19,6 +19,5 @@ class ResultsController {
     fun createResult(
         @RequestBody @Valid createRequest: CreateResultRequest
     ) = GlobalScope.launch {
-
     }
 }
