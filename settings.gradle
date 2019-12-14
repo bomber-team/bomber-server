@@ -1,2 +1,4 @@
 rootProject.name = 'Server-bomber'
 include 'api'
+include 'core'
+include ':core:service'
