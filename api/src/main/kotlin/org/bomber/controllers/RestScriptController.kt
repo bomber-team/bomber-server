@@ -1,6 +1,7 @@
 package org.bomber.controllers
 
 import org.bomber.dto.requests.CreateScriptRequest
+import org.bomber.dto.requests.UpdateScriptRequest
 import org.bomber.dto.script.RestScriptDTO
 import org.bomber.dto.script.RestScriptItemsDTO
 import org.bomber.service.rest.script.RestScriptService
@@ -24,14 +25,17 @@ class RestScriptController(
         return ResponseEntity.status(HttpStatus.CREATED).body(script)
     }
 
-    @PutMapping
-    suspend fun updateScript(@RequestBody updateRequest: RestScriptDTO): ResponseEntity<RestScriptDTO> {
+    @PutMapping("/{id}")
+    suspend fun updateScript(
+        @PathVariable id: String,
+        @RequestBody updateRequest: UpdateScriptRequest
+    ): ResponseEntity<RestScriptDTO> {
         val script = scriptService.updateScript(updateRequest)
         return ResponseEntity.status(HttpStatus.OK).body(script)
     }
 
     @GetMapping(value = ["/{id}"])
-    suspend fun getScript(@RequestParam id: String): ResponseEntity<RestScriptDTO> {
+    suspend fun getScript(@PathVariable id: String): ResponseEntity<RestScriptDTO> {
         val script = scriptService.getScript(id)
         return ResponseEntity.status(HttpStatus.OK).body(script)
     }
@@ -46,7 +50,7 @@ class RestScriptController(
     }
 
     @DeleteMapping(value = ["/{id}"])
-    suspend fun deleteScript(@RequestParam id: String): ResponseEntity<RestScriptDTO> {
+    suspend fun deleteScript(@PathVariable id: String): ResponseEntity<RestScriptDTO> {
         val deleted = scriptService.deleteScript(id)
         return ResponseEntity.status(HttpStatus.OK).body(deleted)
     }
