@@ -12,6 +12,8 @@ springBoot {
     buildInfo()
 }
 
+//mainClassName = "org.bomber.ApplicationKt"
+
 repositories {
     mavenCentral()
 }
