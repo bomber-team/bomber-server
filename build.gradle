@@ -9,7 +9,8 @@ ext {
             coroutines    : "1.3.3",
             arangoData    : "3.2.3",
             arangoDriver  : "5.0.4",
-            testContainers: "1.11.2"
+            testContainers: "1.11.2",
+            ktorClient    : "1.2.5"
     ]
 }
 
