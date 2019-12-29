@@ -3,37 +3,27 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.spring' version '1.3.11'
 }
 group 'Server-bomber'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'java'
-//make all class open for jpa
+
 version '1.0-SNAPSHOT'
 
 springBoot {
     buildInfo()
 }
 
-//mainClassName = "org.bomber.ApplicationKt"
-
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
     //Spring
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     //jetbrains
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.3.2'
-    implementation 'org.jetbrains.kotlin:kotlin-reflect'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8"
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-reactor', version: '1.3.2'
-
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactor"
 
     // Databases
-    implementation group: 'com.arangodb', name: 'arangodb-java-driver-async', version: '5.0.4'
-    implementation 'com.arangodb:arangodb-spring-data:3.2.3'
+    implementation "com.arangodb:arangodb-java-driver-async"
+    implementation 'com.arangodb:arangodb-spring-data'
 
     //serialization
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
@@ -42,10 +32,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude module: 'junit'
     }
-    testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '5.1.4.RELEASE'
-    testImplementation group: 'org.testcontainers', name: 'testcontainers', version: '1.11.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.2'
+    testImplementation group: 'org.springframework.security', name: 'spring-security-test'
+    testImplementation group: 'org.testcontainers', name: 'testcontainers'
 }
 compileJava.dependsOn(processResources)
 
