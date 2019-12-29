@@ -1,7 +1,7 @@
 package org.bomber.controllers
 
-import org.bomber.dto.requests.CreateRequest
-import org.bomber.dto.requests.UpdateRequest
+import org.bomber.api.dto.requests.CreateRequest
+import org.bomber.api.dto.requests.UpdateRequest
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.springframework.http.MediaType

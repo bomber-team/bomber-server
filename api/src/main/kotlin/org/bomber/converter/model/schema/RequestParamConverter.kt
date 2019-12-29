@@ -1,6 +1,6 @@
 package org.bomber.converter.model.schema
 
-import org.bomber.dto.schema.RequestParamDTO
+import org.bomber.api.dto.schema.RequestParamDTO
 import org.bomber.model.schema.RequestParam
 import org.springframework.core.convert.converter.Converter
 

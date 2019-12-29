@@ -2,10 +2,10 @@ package org.bomber.service.rest.script
 
 import org.bomber.converter.dto.script.RestScriptDTOConverter
 import org.bomber.converter.model.RestConfigurationConverter
-import org.bomber.dto.requests.CreateScriptRequest
-import org.bomber.dto.requests.UpdateScriptRequest
-import org.bomber.dto.script.RestScriptDTO
-import org.bomber.dto.script.RestScriptItemsDTO
+import org.bomber.api.dto.requests.CreateScriptRequest
+import org.bomber.api.dto.requests.UpdateScriptRequest
+import org.bomber.api.dto.script.RestScriptDTO
+import org.bomber.api.dto.script.RestScriptItemsDTO
 import org.bomber.exception.RestScriptNotFoundException
 import org.bomber.model.script.RestScript
 import org.bomber.repository.rest.script.RestScriptRepository

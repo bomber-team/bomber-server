@@ -1,6 +1,6 @@
 package org.bomber.converter.dto.schema
 
-import org.bomber.dto.schema.RestSchemaDTO
+import org.bomber.api.dto.schema.RestSchemaDTO
 import org.bomber.model.schema.RestSchema
 import org.springframework.core.convert.converter.Converter
 

@@ -1,9 +1,9 @@
 package org.bomber.controllers
 
-import org.bomber.dto.requests.CreateScriptRequest
-import org.bomber.dto.requests.UpdateScriptRequest
-import org.bomber.dto.script.RestScriptDTO
-import org.bomber.dto.script.RestScriptItemsDTO
+import org.bomber.api.dto.requests.CreateScriptRequest
+import org.bomber.api.dto.requests.UpdateScriptRequest
+import org.bomber.api.dto.script.RestScriptDTO
+import org.bomber.api.dto.script.RestScriptItemsDTO
 import org.bomber.service.rest.script.RestScriptService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

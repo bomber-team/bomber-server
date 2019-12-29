@@ -1,6 +1,6 @@
 package org.bomber.converter.dto.schema
 
-import org.bomber.dto.schema.LanguageDTO
+import org.bomber.api.dto.schema.LanguageDTO
 import org.bomber.model.schema.Language
 import org.springframework.core.convert.converter.Converter
 

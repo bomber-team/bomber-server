@@ -1,6 +1,6 @@
 package org.bomber.converter.model.schema
 
-import org.bomber.dto.schema.IpSectionDTO
+import org.bomber.api.dto.schema.IpSectionDTO
 import org.bomber.model.schema.IpSection
 import org.springframework.core.convert.converter.Converter
 

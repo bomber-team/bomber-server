@@ -1,6 +1,6 @@
 package org.bomber.controllers
 
-import org.bomber.dto.requests.CreateResultRequest
+import org.bomber.api.dto.requests.CreateResultRequest
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.springframework.web.bind.annotation.PostMapping

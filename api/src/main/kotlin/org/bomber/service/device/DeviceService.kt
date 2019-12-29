@@ -1,9 +1,9 @@
 package org.bomber.service.device
 
-import org.bomber.dto.device.DeviceDTO
-import org.bomber.dto.device.DeviceItemsDTO
-import org.bomber.dto.requests.CreateDeviceRequest
-import org.bomber.dto.requests.UpdateDeviceRequest
+import org.bomber.api.dto.device.DeviceDTO
+import org.bomber.api.dto.device.DeviceItemsDTO
+import org.bomber.api.dto.requests.CreateDeviceRequest
+import org.bomber.api.dto.requests.UpdateDeviceRequest
 
 interface DeviceService {
     suspend fun createDevice(createDeviceRequest: CreateDeviceRequest): DeviceDTO

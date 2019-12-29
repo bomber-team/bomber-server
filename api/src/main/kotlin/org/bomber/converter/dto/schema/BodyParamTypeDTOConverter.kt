@@ -1,6 +1,6 @@
 package org.bomber.converter.dto.schema
 
-import org.bomber.dto.schema.BodyParamTypeDTO
+import org.bomber.api.dto.schema.BodyParamTypeDTO
 import org.bomber.model.schema.BodyParamType
 import org.springframework.core.convert.converter.Converter
 

@@ -1,6 +1,6 @@
 package org.bomber.converter.dto.script
 
-import org.bomber.dto.script.RestConfigurationDTO
+import org.bomber.api.dto.script.RestConfigurationDTO
 import org.bomber.model.script.RestConfiguration
 import org.springframework.core.convert.converter.Converter
 

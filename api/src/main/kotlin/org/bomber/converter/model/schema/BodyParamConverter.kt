@@ -1,9 +1,9 @@
 package org.bomber.converter.model.schema
 
-import org.bomber.dto.schema.BodyParamDTO
-import org.bomber.dto.schema.ListPropertyDTO
-import org.bomber.dto.schema.ObjectPropertyDTO
-import org.bomber.dto.schema.SimplePropertyDTO
+import org.bomber.api.dto.schema.BodyParamDTO
+import org.bomber.api.dto.schema.ListPropertyDTO
+import org.bomber.api.dto.schema.ObjectPropertyDTO
+import org.bomber.api.dto.schema.SimplePropertyDTO
 import org.bomber.model.schema.BodyParam
 import org.springframework.core.convert.converter.Converter
 

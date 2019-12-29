@@ -1,6 +1,6 @@
 package org.bomber.controllers
 
-import org.bomber.dto.requests.CreateMetricRequest
+import org.bomber.api.dto.requests.CreateMetricRequest
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.springframework.http.MediaType

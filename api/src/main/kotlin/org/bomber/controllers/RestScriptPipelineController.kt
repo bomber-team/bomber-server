@@ -1,7 +1,7 @@
 package org.bomber.controllers
 
-import org.bomber.dto.requests.CreateScriptPipeline
-import org.bomber.dto.requests.UpdateScriptPipeline
+import org.bomber.api.dto.requests.CreateScriptPipeline
+import org.bomber.api.dto.requests.UpdateScriptPipeline
 import org.bomber.model.script.RestScriptPipeline
 import org.bomber.model.script.RestScriptPipelineItems
 import org.bomber.service.rest.script.pipeline.RestScriptPipelineService

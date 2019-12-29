@@ -3,10 +3,10 @@ package org.bomber.service.rest.schema
 import org.bomber.converter.dto.schema.RestSchemaDTOConverter
 import org.bomber.converter.model.schema.BodyParamConverter
 import org.bomber.converter.model.schema.RequestParamConverter
-import org.bomber.dto.requests.CreateRestSchemaRequest
-import org.bomber.dto.requests.UpdateRestSchemaRequest
-import org.bomber.dto.schema.RestSchemaDTO
-import org.bomber.dto.schema.RestSchemaItemsDTO
+import org.bomber.api.dto.requests.CreateRestSchemaRequest
+import org.bomber.api.dto.requests.UpdateRestSchemaRequest
+import org.bomber.api.dto.schema.RestSchemaDTO
+import org.bomber.api.dto.schema.RestSchemaItemsDTO
 import org.bomber.exception.RestSchemaNotFoundException
 import org.bomber.model.schema.RestSchema
 import org.bomber.repository.rest.schema.RestSchemaRepository

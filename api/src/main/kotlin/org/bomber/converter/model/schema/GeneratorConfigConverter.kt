@@ -1,10 +1,10 @@
 package org.bomber.converter.model.schema
 
-import org.bomber.dto.schema.GeneratorConfigDTO
-import org.bomber.dto.schema.IpGeneratorConfigDTO
-import org.bomber.dto.schema.PasswordGeneratorConfigDTO
-import org.bomber.dto.schema.RegexpConfigDTO
-import org.bomber.dto.schema.WordGeneratorConfigDTO
+import org.bomber.api.dto.schema.GeneratorConfigDTO
+import org.bomber.api.dto.schema.IpGeneratorConfigDTO
+import org.bomber.api.dto.schema.PasswordGeneratorConfigDTO
+import org.bomber.api.dto.schema.RegexpConfigDTO
+import org.bomber.api.dto.schema.WordGeneratorConfigDTO
 import org.bomber.model.schema.GeneratorConfig
 import org.bomber.model.schema.IpGeneratorConfig
 import org.bomber.model.schema.PasswordGeneratorConfig

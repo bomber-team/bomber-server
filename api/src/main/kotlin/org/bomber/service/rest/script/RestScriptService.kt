@@ -1,9 +1,9 @@
 package org.bomber.service.rest.script
 
-import org.bomber.dto.requests.CreateScriptRequest
-import org.bomber.dto.requests.UpdateScriptRequest
-import org.bomber.dto.script.RestScriptDTO
-import org.bomber.dto.script.RestScriptItemsDTO
+import org.bomber.api.dto.requests.CreateScriptRequest
+import org.bomber.api.dto.requests.UpdateScriptRequest
+import org.bomber.api.dto.script.RestScriptDTO
+import org.bomber.api.dto.script.RestScriptItemsDTO
 
 interface RestScriptService {
     suspend fun createScript(request: CreateScriptRequest): RestScriptDTO

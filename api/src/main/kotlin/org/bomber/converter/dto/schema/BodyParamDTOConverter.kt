@@ -1,6 +1,6 @@
 package org.bomber.converter.dto.schema
 
-import org.bomber.dto.schema.BodyParamDTO
+import org.bomber.api.dto.schema.BodyParamDTO
 import org.bomber.model.schema.BodyParam
 import org.bomber.model.schema.ListProperty
 import org.bomber.model.schema.ObjectProperty

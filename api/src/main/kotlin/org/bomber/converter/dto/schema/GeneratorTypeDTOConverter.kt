@@ -1,6 +1,6 @@
 package org.bomber.converter.dto.schema
 
-import org.bomber.dto.schema.GeneratorTypeDTO
+import org.bomber.api.dto.schema.GeneratorTypeDTO
 import org.bomber.model.schema.GeneratorType
 import org.springframework.core.convert.converter.Converter
 

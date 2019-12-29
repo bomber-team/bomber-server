@@ -1,6 +1,6 @@
 package org.bomber.converter.dto.schema
 
-import org.bomber.dto.schema.SimplePropertyDTO
+import org.bomber.api.dto.schema.SimplePropertyDTO
 import org.bomber.model.schema.SimpleProperty
 import org.springframework.core.convert.converter.Converter
 
