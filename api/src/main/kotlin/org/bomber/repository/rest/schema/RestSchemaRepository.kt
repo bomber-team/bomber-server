@@ -9,5 +9,5 @@ interface RestSchemaRepository {
 
     suspend fun getSchemas(): List<RestSchema>
 
-    suspend fun deleteScheme(id: String): RestSchema?
+    suspend fun deleteScheme(id: String): Long?
 }

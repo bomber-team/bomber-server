@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping(
-    value = ["/bomber/bomber-api/script/v1"]
+    value = ["/bomber/bomber-api/v1/scripts"]
 )
 class RestScriptController(
     private val scriptService: RestScriptService
 ) {
     @PostMapping
     suspend fun createScript(@RequestBody request: CreateScriptRequest): ResponseEntity<RestScriptDTO> {
-        val script = scriptService.createScript(request)
+        val script = scriptService.create(request)
         return ResponseEntity.status(HttpStatus.CREATED).body(script)
     }
 
@@ -30,28 +30,29 @@ class RestScriptController(
         @PathVariable id: String,
         @RequestBody updateRequest: UpdateScriptRequest
     ): ResponseEntity<RestScriptDTO> {
-        val script = scriptService.updateScript(updateRequest)
+        val script = scriptService.update(id, updateRequest)
         return ResponseEntity.status(HttpStatus.OK).body(script)
     }
 
     @GetMapping(value = ["/{id}"])
     suspend fun getScript(@PathVariable id: String): ResponseEntity<RestScriptDTO> {
-        val script = scriptService.getScript(id)
+        val script = scriptService.get(id)
         return ResponseEntity.status(HttpStatus.OK).body(script)
     }
 
     @GetMapping
-    suspend fun getScriptAll(
+    suspend fun getList(
         @RequestParam("offset") offset: Int,
         @RequestParam("limit") limit: Int
     ): ResponseEntity<RestScriptItemsDTO> {
-        val scriptItems = scriptService.getScriptAll(offset, limit)
+        val scriptItems = scriptService.getAll(offset, limit)
         return ResponseEntity.status(HttpStatus.OK).body(scriptItems)
     }
 
     @DeleteMapping(value = ["/{id}"])
-    suspend fun deleteScript(@PathVariable id: String): ResponseEntity<RestScriptDTO> {
-        val deleted = scriptService.deleteScript(id)
-        return ResponseEntity.status(HttpStatus.OK).body(deleted)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    suspend fun deleteScript(@PathVariable id: String): ResponseEntity<Unit> {
+        scriptService.delete(id)
+        return ResponseEntity.noContent().build()
     }
 }

@@ -11,7 +11,6 @@ data class CreateScriptRequest(
 )
 
 data class UpdateScriptRequest(
-    val schemeId: String,
     val name: String,
     val address: String,
     val requestMethod: String,

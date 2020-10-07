@@ -21,7 +21,7 @@ class RestSchemaController(
 ) {
     @PostMapping
     suspend fun createSchema(@RequestBody request: CreateRestSchemaRequest): ResponseEntity<RestSchemaDTO> {
-        val result = restSchemaService.createSchema(request)
+        val result = restSchemaService.create(request)
         return ResponseEntity.ok(result)
     }
 
@@ -30,28 +30,28 @@ class RestSchemaController(
         @PathVariable id: String,
         @RequestBody request: UpdateRestSchemaRequest
     ): ResponseEntity<RestSchemaDTO> {
-        val result = restSchemaService.updateSchema(id, request)
+        val result = restSchemaService.update(id, request)
         return ResponseEntity.ok(result)
     }
 
     @GetMapping(value = ["/{id}"])
     suspend fun getSchema(@PathVariable id: String): ResponseEntity<RestSchemaDTO> {
-        val result = restSchemaService.getSchema(id)
+        val result = restSchemaService.get(id)
         return ResponseEntity.ok(result)
     }
 
     @GetMapping
-    suspend fun getSchemes(
+    suspend fun getList(
         @RequestParam("offset") offset: Int,
         @RequestParam("limit") limit: Int
     ): ResponseEntity<RestSchemaItemsDTO> {
-        val result = restSchemaService.getSchemes(offset, limit)
+        val result = restSchemaService.getAll(offset, limit)
         return ResponseEntity.ok(result)
     }
 
     @DeleteMapping(value = ["/{id}"])
     suspend fun deleteSchema(@PathVariable id: String): ResponseEntity<RestSchemaDTO> {
-        val result = restSchemaService.deleteSchema(id)
+        val result = restSchemaService.delete(id)
         return ResponseEntity.ok(result)
     }
 }

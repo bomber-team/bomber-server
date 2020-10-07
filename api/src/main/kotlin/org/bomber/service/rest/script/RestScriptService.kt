@@ -6,16 +6,16 @@ import org.bomber.api.dto.script.RestScriptDTO
 import org.bomber.api.dto.script.RestScriptItemsDTO
 
 interface RestScriptService {
-    suspend fun createScript(request: CreateScriptRequest): RestScriptDTO
+    suspend fun create(request: CreateScriptRequest): RestScriptDTO
 
-    suspend fun updateScript(updateRequest: UpdateScriptRequest): RestScriptDTO
+    suspend fun update(id: String, request: UpdateScriptRequest): RestScriptDTO
 
-    suspend fun getScript(id: String): RestScriptDTO
+    suspend fun get(id: String): RestScriptDTO
 
-    suspend fun getScriptAll(
+    suspend fun getAll(
         limit: Int,
         offset: Int
     ): RestScriptItemsDTO
 
-    suspend fun deleteScript(id: String): RestScriptDTO
+    suspend fun delete(id: String): Unit
 }

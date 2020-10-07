@@ -17,7 +17,7 @@ import java.util.*
 class RestSchemaServiceImpl(
     private val restSchemaRepository: RestSchemaRepository
 ) : RestSchemaService {
-    override suspend fun createSchema(request: CreateRestSchemaRequest): RestSchemaDTO {
+    override suspend fun create(request: CreateRestSchemaRequest): RestSchemaDTO {
         val model = RestSchema(
             id = UUID.randomUUID().toString(),
             pathVariables = request.pathVariables,
@@ -29,24 +29,24 @@ class RestSchemaServiceImpl(
         return RestSchemaDTOConverter.convert(result)
     }
 
-    override suspend fun updateSchema(id: String, request: UpdateRestSchemaRequest): RestSchemaDTO {
+    override suspend fun update(id: String, request: UpdateRestSchemaRequest): RestSchemaDTO {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getSchema(id: String): RestSchemaDTO {
+    override suspend fun get(id: String): RestSchemaDTO {
         val schema = restSchemaRepository.getSchema(id)
             ?: throw RestSchemaNotFoundException(id)
         return RestSchemaDTOConverter.convert(schema)
     }
 
-    override suspend fun getSchemes(offset: Int, limit: Int): RestSchemaItemsDTO {
+    override suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDTO {
         val schemas = restSchemaRepository.getSchemas()
         return RestSchemaItemsDTO(
             items = schemas.map { RestSchemaDTOConverter.convert(it) }
         )
     }
 
-    override suspend fun deleteSchema(id: String): RestSchemaDTO {
+    override suspend fun delete(id: String): RestSchemaDTO {
         val deletedSchema = restSchemaRepository.deleteScheme(id)
             ?: throw RestSchemaNotFoundException(id)
         return RestSchemaDTOConverter.convert(deletedSchema)

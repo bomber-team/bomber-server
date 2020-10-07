@@ -1,5 +1,6 @@
 package org.bomber.repository.rest.schema
 
+import com.arangodb.model.DocumentDeleteOptions
 import com.arangodb.springframework.core.ArangoOperations
 import org.bomber.model.schema.RestSchema
 import org.slf4j.LoggerFactory
@@ -27,7 +28,10 @@ class RestSchemaRepositoryImpl(
         return result.toList()
     }
 
-    override suspend fun deleteScheme(id: String): RestSchema? {
-        TODO("not implemented")
+    override suspend fun deleteScheme(id: String): Long? {
+        val options = DocumentDeleteOptions()
+        options.waitForSync(true)
+        val result = arangoTemplate.delete(id, RestSchema::class.java, options)
+        return result?.let { 1 }
     }
 }

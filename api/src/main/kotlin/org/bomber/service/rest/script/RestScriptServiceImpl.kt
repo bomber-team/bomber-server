@@ -7,8 +7,10 @@ import org.bomber.api.dto.requests.UpdateScriptRequest
 import org.bomber.api.dto.script.RestScriptDTO
 import org.bomber.api.dto.script.RestScriptItemsDTO
 import org.bomber.exception.RestScriptNotFoundException
+import org.bomber.exception.RestScriptUpdateException
 import org.bomber.model.script.RestScript
 import org.bomber.repository.rest.script.RestScriptRepository
+import org.bomber.repository.rest.script.UpdateScript
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -18,9 +20,9 @@ import java.util.*
  */
 @Service
 class RestScriptServiceImpl(
-    private val restScriptRepository: RestScriptRepository
+    private val repository: RestScriptRepository
 ) : RestScriptService {
-    override suspend fun createScript(request: CreateScriptRequest): RestScriptDTO {
+    override suspend fun create(request: CreateScriptRequest): RestScriptDTO {
         val model = RestScript(
             id = UUID.randomUUID().toString(),
             schemeId = request.schemeId,
@@ -30,34 +32,40 @@ class RestScriptServiceImpl(
             configuration = RestConfigurationConverter.convert(request.configuration)
         )
 
-        val result = restScriptRepository.saveScript(model)
+        val result = repository.save(model)
 
         return RestScriptDTOConverter.convert(result)
     }
 
-    override suspend fun updateScript(updateRequest: UpdateScriptRequest): RestScriptDTO {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    override suspend fun update(id: String, request: UpdateScriptRequest): RestScriptDTO {
+        val updateScript = UpdateScript(
+            name = request.name,
+            address = request.address,
+            requestMethod = request.requestMethod,
+            configuration = RestConfigurationConverter.convert(request.configuration)
+        )
+        return repository.update(id, updateScript)?.let {
+            RestScriptDTOConverter.convert(it)
+        } ?: throw RestScriptUpdateException(id)
     }
 
-    override suspend fun getScript(id: String): RestScriptDTO {
-        val restScript = restScriptRepository.getScript(id)
+    override suspend fun get(id: String): RestScriptDTO {
+        val restScript = repository.get(id)
             ?: throw RestScriptNotFoundException(id)
         return RestScriptDTOConverter.convert(restScript)
     }
 
-    override suspend fun getScriptAll(
+    override suspend fun getAll(
         limit: Int,
         offset: Int
     ): RestScriptItemsDTO {
-        val scripts = restScriptRepository.getScripts()
+        val scripts = repository.getAll()
         return RestScriptItemsDTO(
             items = scripts.map { RestScriptDTOConverter.convert(it) }
         )
     }
 
-    override suspend fun deleteScript(id: String): RestScriptDTO {
-        val result = restScriptRepository.deleteScript(id)
-            ?: throw RestScriptNotFoundException(id)
-        return RestScriptDTOConverter.convert(result)
+    override suspend fun delete(id: String) {
+        repository.delete(id) ?: throw RestScriptNotFoundException(id)
     }
 }

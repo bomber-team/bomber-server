@@ -6,14 +6,13 @@ import org.bomber.api.dto.schema.RestSchemaDTO
 import org.bomber.api.dto.schema.RestSchemaItemsDTO
 
 interface RestSchemaService {
+    suspend fun create(request: CreateRestSchemaRequest): RestSchemaDTO
 
-    suspend fun createSchema(request: CreateRestSchemaRequest): RestSchemaDTO
+    suspend fun update(id: String, request: UpdateRestSchemaRequest): RestSchemaDTO
 
-    suspend fun updateSchema(id: String, request: UpdateRestSchemaRequest): RestSchemaDTO
+    suspend fun get(id: String): RestSchemaDTO
 
-    suspend fun getSchema(id: String): RestSchemaDTO
+    suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDTO
 
-    suspend fun getSchemes(offset: Int, limit: Int): RestSchemaItemsDTO
-
-    suspend fun deleteSchema(id: String): RestSchemaDTO
+    suspend fun delete(id: String): RestSchemaDTO
 }
