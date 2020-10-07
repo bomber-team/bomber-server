@@ -1,7 +1,6 @@
 package org.bomber.service.rest.schema
 
 import org.bomber.converter.dto.schema.RestSchemaDTOConverter
-import org.bomber.converter.model.schema.BodyParamConverter
 import org.bomber.converter.model.schema.RequestParamConverter
 import org.bomber.api.dto.requests.CreateRestSchemaRequest
 import org.bomber.api.dto.requests.UpdateRestSchemaRequest
@@ -23,7 +22,7 @@ class RestSchemaServiceImpl(
             pathVariables = request.pathVariables,
             headers = request.headers,
             requestParams = request.requestParams.map { RequestParamConverter.convert(it) },
-            body = request.body?.map { BodyParamConverter.convert(it) } ?: listOf()
+            body = request.body
         )
         val result = restSchemaRepository.saveSchema(model)
         return RestSchemaDTOConverter.convert(result)
@@ -46,9 +45,8 @@ class RestSchemaServiceImpl(
         )
     }
 
-    override suspend fun delete(id: String): RestSchemaDTO {
-        val deletedSchema = restSchemaRepository.deleteScheme(id)
+    override suspend fun delete(id: String) {
+        restSchemaRepository.deleteScheme(id)
             ?: throw RestSchemaNotFoundException(id)
-        return RestSchemaDTOConverter.convert(deletedSchema)
     }
 }

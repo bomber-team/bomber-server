@@ -5,6 +5,7 @@ import org.bomber.api.dto.requests.UpdateRestSchemaRequest
 import org.bomber.api.dto.schema.RestSchemaDTO
 import org.bomber.api.dto.schema.RestSchemaItemsDTO
 import org.bomber.service.rest.schema.RestSchemaService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -50,8 +51,9 @@ class RestSchemaController(
     }
 
     @DeleteMapping(value = ["/{id}"])
-    suspend fun deleteSchema(@PathVariable id: String): ResponseEntity<RestSchemaDTO> {
-        val result = restSchemaService.delete(id)
-        return ResponseEntity.ok(result)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    suspend fun deleteSchema(@PathVariable id: String): ResponseEntity<Unit> {
+        restSchemaService.delete(id)
+        return ResponseEntity.noContent().build()
     }
 }

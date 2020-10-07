@@ -10,5 +10,5 @@ data class RestSchema(
     val pathVariables: Map<String, String>,
     val headers: Map<String, String>,
     val requestParams: List<RequestParam>,
-    val body: List<BodyParam>
+    val body: String
 ) : Schema()

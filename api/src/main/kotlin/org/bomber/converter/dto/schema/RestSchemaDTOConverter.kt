@@ -11,9 +11,7 @@ object RestSchemaDTOConverter : Converter<RestSchema, RestSchemaDTO> {
             pathVariables = source.pathVariables,
             headers = source.headers,
             requestParams = source.requestParams.map { RequestParamDTOConverter.convert(it) },
-            body = source.body.map {
-                BodyParamDTOConverter.convert(it)
-            }
+            body = source.body
         )
     }
 }

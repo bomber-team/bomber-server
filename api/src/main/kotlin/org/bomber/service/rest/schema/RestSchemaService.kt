@@ -14,5 +14,5 @@ interface RestSchemaService {
 
     suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDTO
 
-    suspend fun delete(id: String): RestSchemaDTO
+    suspend fun delete(id: String): Unit
 }

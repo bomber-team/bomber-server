@@ -7,5 +7,5 @@ data class RestSchemaDTO(
     val pathVariables: Map<String, String>,
     val headers: Map<String, String>,
     val requestParams: List<RequestParamDTO>,
-    val body: List<BodyParamDTO>
+    val body: String
 ) : SchemaDTO()
