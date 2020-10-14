@@ -1,8 +1,8 @@
-package org.bomber.api.dto
+package org.bomber.api.dto.form
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-enum class StatusFormDTO {
+enum class StatusFormDto {
     @JsonProperty("new")
     NEW,
     @JsonProperty("ready")

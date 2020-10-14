@@ -1,10 +1,10 @@
 package org.bomber.converter.dto.schema
 
-import org.bomber.api.dto.schema.GeneratorConfigDTO
-import org.bomber.api.dto.schema.IpGeneratorConfigDTO
-import org.bomber.api.dto.schema.PasswordGeneratorConfigDTO
-import org.bomber.api.dto.schema.RegexpConfigDTO
-import org.bomber.api.dto.schema.WordGeneratorConfigDTO
+import org.bomber.api.dto.schema.GeneratorConfigDto
+import org.bomber.api.dto.schema.IpGeneratorConfigDto
+import org.bomber.api.dto.schema.PasswordGeneratorConfigDto
+import org.bomber.api.dto.schema.RegexpConfigDto
+import org.bomber.api.dto.schema.WordGeneratorConfigDto
 import org.bomber.model.schema.GeneratorConfig
 import org.bomber.model.schema.IpGeneratorConfig
 import org.bomber.model.schema.PasswordGeneratorConfig
@@ -12,26 +12,26 @@ import org.bomber.model.schema.RegexpConfig
 import org.bomber.model.schema.WordGeneratorConfig
 import org.springframework.core.convert.converter.Converter
 
-object GeneratorConfigDTOConverter : Converter<GeneratorConfig, GeneratorConfigDTO> {
-    override fun convert(source: GeneratorConfig): GeneratorConfigDTO {
+object GeneratorConfigDTOConverter : Converter<GeneratorConfig, GeneratorConfigDto> {
+    override fun convert(source: GeneratorConfig): GeneratorConfigDto {
         return when (source) {
-            is WordGeneratorConfig -> WordGeneratorConfigDTO(
+            is WordGeneratorConfig -> WordGeneratorConfigDto(
                 minLetters = source.minLetters,
                 maxLetters = source.maxLetters,
                 alphabet = source.alphabet
             )
-            is IpGeneratorConfig -> IpGeneratorConfigDTO(
+            is IpGeneratorConfig -> IpGeneratorConfigDto(
                 firstSection = IpSectionDTOConverter.convert(source.firstSection),
                 secondSection = IpSectionDTOConverter.convert(source.secondSection),
                 thirdSection = IpSectionDTOConverter.convert(source.thirdSection),
                 fourthSection = IpSectionDTOConverter.convert(source.fourthSection)
             )
-            is PasswordGeneratorConfig -> PasswordGeneratorConfigDTO(
+            is PasswordGeneratorConfig -> PasswordGeneratorConfigDto(
                 minLetters = source.minLetters,
                 maxLetters = source.maxLetters,
                 language = LanguageDTOConverter.convert(source.language)
             )
-            is RegexpConfig -> RegexpConfigDTO(
+            is RegexpConfig -> RegexpConfigDto(
                 pattern = source.pattern
             )
         }

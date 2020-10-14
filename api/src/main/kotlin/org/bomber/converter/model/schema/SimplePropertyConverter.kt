@@ -10,7 +10,6 @@ object SimplePropertyConverter : Converter<SimplePropertyDTO<*>, SimpleProperty<
             name = source.name,
             type = BodyParamTypeConverter.convert(source.type),
             isGenerated = source.isGenerated,
-            generatorType = source.generatorType?.let { GeneratorTypeConverter.convert(it) },
             config = source.config?.let { GeneratorConfigConverter.convert(it) },
             value = source.value
         )

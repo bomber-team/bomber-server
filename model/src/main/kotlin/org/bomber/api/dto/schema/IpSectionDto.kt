@@ -1,6 +1,6 @@
 package org.bomber.api.dto.schema
 
-data class IpSectionDTO(
+data class IpSectionDto(
     val min: Int,
     val max: Int
 )

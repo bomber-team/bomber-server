@@ -1,5 +1,6 @@
 package org.bomber.controllers
 
+import io.swagger.v3.oas.annotations.Operation
 import org.bomber.api.dto.device.DeviceDTO
 import org.bomber.api.dto.device.DeviceItemsDTO
 import org.bomber.api.dto.requests.CreateDeviceRequest
@@ -22,6 +23,7 @@ class DeviceController(
 ) {
 
     @PostMapping
+    @Operation(hidden = true)
     suspend fun createDevice(
         @RequestBody createDeviceRequest: CreateDeviceRequest
     ): ResponseEntity<DeviceDTO> {
@@ -30,6 +32,7 @@ class DeviceController(
     }
 
     @PatchMapping("/{id}")
+    @Operation(hidden = true)
     suspend fun updateDevice(
         @PathVariable id: String,
         @RequestBody updateDeviceRequest: UpdateDeviceRequest
@@ -39,12 +42,14 @@ class DeviceController(
     }
 
     @GetMapping("/{id}")
+    @Operation(hidden = true)
     suspend fun getDevice(@PathVariable id: String): ResponseEntity<DeviceDTO> {
         val device = deviceService.getDevice(id)
         return ResponseEntity.ok(device)
     }
 
     @GetMapping
+    @Operation(hidden = true)
     suspend fun getDevices(
         @RequestParam("offset") offset: Int,
         @RequestParam("limit") limit: Int
@@ -54,6 +59,7 @@ class DeviceController(
     }
 
     @DeleteMapping("/{id}")
+    @Operation(hidden = true)
     suspend fun deleteDevice(@PathVariable id: String): ResponseEntity<DeviceDTO> {
         val device = deviceService.deleteDevice(id)
         return ResponseEntity.ok(device)

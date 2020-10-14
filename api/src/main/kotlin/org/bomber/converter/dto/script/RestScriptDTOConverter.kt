@@ -1,12 +1,12 @@
 package org.bomber.converter.dto.script
 
-import org.bomber.api.dto.script.RestScriptDTO
+import org.bomber.api.dto.script.RestScriptDto
 import org.bomber.model.script.RestScript
 import org.springframework.core.convert.converter.Converter
 
-object RestScriptDTOConverter : Converter<RestScript, RestScriptDTO> {
-    override fun convert(source: RestScript): RestScriptDTO {
-        return RestScriptDTO(
+object RestScriptDTOConverter : Converter<RestScript, RestScriptDto> {
+    override fun convert(source: RestScript): RestScriptDto {
+        return RestScriptDto(
             id = source.id,
             schemeId = source.schemeId,
             name = source.name,

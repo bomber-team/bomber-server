@@ -1,6 +1,9 @@
 package org.bomber.api.dto.script
 
-data class RestConfigurationDTO(
+import io.swagger.v3.oas.annotations.media.Schema
+
+@Schema(name = "RestConfiguration")
+data class RestConfigurationDto(
     val amountRequest: Long,
     val timeoutForOneRequest: Long,
     val timeBetweenAttacks: Long,

@@ -2,7 +2,7 @@ package org.bomber.controllers
 
 import org.bomber.api.dto.requests.CreateScriptRequest
 import org.bomber.api.dto.requests.UpdateScriptRequest
-import org.bomber.api.dto.script.RestScriptDTO
+import org.bomber.api.dto.script.RestScriptDto
 import org.bomber.api.dto.script.RestScriptItemsDTO
 import org.bomber.service.rest.script.RestScriptService
 import org.springframework.http.HttpStatus
@@ -20,7 +20,7 @@ class RestScriptController(
     private val scriptService: RestScriptService
 ) {
     @PostMapping
-    suspend fun createScript(@RequestBody request: CreateScriptRequest): ResponseEntity<RestScriptDTO> {
+    suspend fun createScript(@RequestBody request: CreateScriptRequest): ResponseEntity<RestScriptDto> {
         val script = scriptService.create(request)
         return ResponseEntity.status(HttpStatus.CREATED).body(script)
     }
@@ -29,13 +29,13 @@ class RestScriptController(
     suspend fun updateScript(
         @PathVariable id: String,
         @RequestBody updateRequest: UpdateScriptRequest
-    ): ResponseEntity<RestScriptDTO> {
+    ): ResponseEntity<RestScriptDto> {
         val script = scriptService.update(id, updateRequest)
         return ResponseEntity.status(HttpStatus.OK).body(script)
     }
 
     @GetMapping(value = ["/{id}"])
-    suspend fun getScript(@PathVariable id: String): ResponseEntity<RestScriptDTO> {
+    suspend fun getScript(@PathVariable id: String): ResponseEntity<RestScriptDto> {
         val script = scriptService.get(id)
         return ResponseEntity.status(HttpStatus.OK).body(script)
     }

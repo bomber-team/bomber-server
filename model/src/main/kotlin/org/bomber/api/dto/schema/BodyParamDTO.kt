@@ -2,51 +2,44 @@ package org.bomber.api.dto.schema
 
 sealed class BodyParamDTO(
     val name: String,
-    val type: BodyParamTypeDTO,
+    val type: BodyParamTypeDto,
     val isGenerated: Boolean?,
-    val generatorType: GeneratorTypeDTO?,
-    val config: GeneratorConfigDTO?
+    val config: GeneratorConfigDto?
 )
 
 class SimplePropertyDTO<T>(
     name: String,
-    type: BodyParamTypeDTO,
+    type: BodyParamTypeDto,
     isGenerated: Boolean?,
-    generatorType: GeneratorTypeDTO?,
-    config: GeneratorConfigDTO?,
+    config: GeneratorConfigDto?,
     val value: T
 ) : BodyParamDTO(
     name,
     type,
     isGenerated,
-    generatorType,
     config
 )
 
 class ListPropertyDTO<T>(
     name: String,
     isGenerated: Boolean?,
-    generatorType: GeneratorTypeDTO?,
-    config: GeneratorConfigDTO?,
+    config: GeneratorConfigDto?,
     val value: List<SimplePropertyDTO<T>>
 ) : BodyParamDTO(
     name,
-    type = BodyParamTypeDTO.LIST,
+    type = BodyParamTypeDto.LIST,
     isGenerated = isGenerated,
-    config = config,
-    generatorType = generatorType
+    config = config
 )
 
 class ObjectPropertyDTO(
     name: String,
     isGenerated: Boolean?,
-    generatorType: GeneratorTypeDTO?,
-    config: GeneratorConfigDTO?,
+    config: GeneratorConfigDto?,
     val properties: Map<String, BodyParamDTO>
 ) : BodyParamDTO(
     name,
-    type = BodyParamTypeDTO.OBJECT,
+    type = BodyParamTypeDto.OBJECT,
     isGenerated = isGenerated,
-    config = config,
-    generatorType = generatorType
+    config = config
 )

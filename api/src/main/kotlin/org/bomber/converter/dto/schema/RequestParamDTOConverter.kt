@@ -1,12 +1,12 @@
 package org.bomber.converter.dto.schema
 
-import org.bomber.api.dto.schema.RequestParamDTO
+import org.bomber.api.dto.schema.RequestParamDto
 import org.bomber.model.schema.RequestParam
 import org.springframework.core.convert.converter.Converter
 
-object RequestParamDTOConverter : Converter<RequestParam, RequestParamDTO> {
-    override fun convert(source: RequestParam): RequestParamDTO {
-        return RequestParamDTO(
+object RequestParamDTOConverter : Converter<RequestParam, RequestParamDto> {
+    override fun convert(source: RequestParam): RequestParamDto {
+        return RequestParamDto(
             name = source.name,
             isGeneratorNeed = source.isGeneratorNeed,
             value = source.value,

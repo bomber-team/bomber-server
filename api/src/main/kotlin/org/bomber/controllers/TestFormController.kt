@@ -1,7 +1,7 @@
 package org.bomber.controllers
 
-import org.bomber.api.dto.requests.CreateRequest
-import org.bomber.api.dto.requests.UpdateRequest
+import org.bomber.api.dto.requests.CreateTestFormRequest
+import org.bomber.api.dto.requests.UpdateTestFormRequest
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.springframework.http.MediaType
@@ -16,14 +16,14 @@ class TestFormController {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun createForm(
-        @RequestBody @Valid request: CreateRequest
+        @RequestBody @Valid request: CreateTestFormRequest
     ) = GlobalScope.launch {
     }
 
     @PatchMapping("/{formId}", consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun updateForm(
         @PathVariable formId: String,
-        @RequestBody @Valid request: UpdateRequest
+        @RequestBody @Valid request: UpdateTestFormRequest
     ) = GlobalScope.launch {
         TODO("Not implemented")
     }

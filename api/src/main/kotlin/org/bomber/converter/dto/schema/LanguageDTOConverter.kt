@@ -1,14 +1,14 @@
 package org.bomber.converter.dto.schema
 
-import org.bomber.api.dto.schema.LanguageDTO
+import org.bomber.api.dto.schema.LanguageDto
 import org.bomber.model.schema.Language
 import org.springframework.core.convert.converter.Converter
 
-object LanguageDTOConverter : Converter<Language, LanguageDTO> {
-    override fun convert(source: Language): LanguageDTO {
+object LanguageDTOConverter : Converter<Language, LanguageDto> {
+    override fun convert(source: Language): LanguageDto {
         return when (source) {
-            Language.RU -> LanguageDTO.RU
-            Language.EN -> LanguageDTO.EN
+            Language.RU -> LanguageDto.RU
+            Language.EN -> LanguageDto.EN
         }
     }
 }

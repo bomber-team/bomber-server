@@ -1,3 +1,9 @@
+springdoc:
+  swagger-ui:
+    path: "/bomber/swagger/swagger-ui.html"
+  api-docs:
+    path: "/bomber/swagger/v3/api-docs"
+
 org:
   bomber:
     team:

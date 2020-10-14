@@ -3,4 +3,6 @@ dependencies {
     api 'com.fasterxml.jackson.module:jackson-module-kotlin'
     api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
     api 'javax.validation:validation-api'
+
+    implementation "io.swagger.core.v3:swagger-annotations"
 }

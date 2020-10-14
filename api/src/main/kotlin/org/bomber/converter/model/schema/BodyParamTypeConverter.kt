@@ -1,15 +1,15 @@
 package org.bomber.converter.model.schema
 
-import org.bomber.api.dto.schema.BodyParamTypeDTO
+import org.bomber.api.dto.schema.BodyParamTypeDto
 import org.bomber.model.schema.BodyParamType
 import org.springframework.core.convert.converter.Converter
 
-object BodyParamTypeConverter : Converter<BodyParamTypeDTO, BodyParamType> {
-    override fun convert(source: BodyParamTypeDTO): BodyParamType {
+object BodyParamTypeConverter : Converter<BodyParamTypeDto, BodyParamType> {
+    override fun convert(source: BodyParamTypeDto): BodyParamType {
         return when (source) {
-            BodyParamTypeDTO.SIMPLE_PROPERTY -> BodyParamType.SIMPLE_PROPERTY
-            BodyParamTypeDTO.LIST -> BodyParamType.LIST
-            BodyParamTypeDTO.OBJECT -> BodyParamType.OBJECT
+            BodyParamTypeDto.SIMPLE_PROPERTY -> BodyParamType.SIMPLE_PROPERTY
+            BodyParamTypeDto.LIST -> BodyParamType.LIST
+            BodyParamTypeDto.OBJECT -> BodyParamType.OBJECT
         }
     }
 }

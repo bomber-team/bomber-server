@@ -1,5 +1,5 @@
 package org.bomber.api.dto.schema
 
-data class RestSchemaItemsDTO(
+data class RestSchemaItemsDto(
     val items: List<RestSchemaDTO>
 )

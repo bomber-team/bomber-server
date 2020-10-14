@@ -3,7 +3,7 @@ package org.bomber.service.rest.schema
 import org.bomber.api.dto.requests.CreateRestSchemaRequest
 import org.bomber.api.dto.requests.UpdateRestSchemaRequest
 import org.bomber.api.dto.schema.RestSchemaDTO
-import org.bomber.api.dto.schema.RestSchemaItemsDTO
+import org.bomber.api.dto.schema.RestSchemaItemsDto
 
 interface RestSchemaService {
     suspend fun create(request: CreateRestSchemaRequest): RestSchemaDTO
@@ -12,7 +12,7 @@ interface RestSchemaService {
 
     suspend fun get(id: String): RestSchemaDTO
 
-    suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDTO
+    suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDto
 
     suspend fun delete(id: String): Unit
 }

@@ -30,14 +30,12 @@ subprojects {
         implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8"
         implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core"
 
-        implementation "org.springdoc:springdoc-openapi-webflux-ui:${versions.springDoc}"
-        implementation "org.springdoc:springdoc-openapi-kotlin:${versions.springDoc}"
-
         constraints {
             api "org.springframework.boot:spring-boot-starter-webflux:${versions.boot}"
             api "com.arangodb:arangodb-java-driver-async:${versions.arangoDriver}"
             api "com.arangodb:arangodb-spring-data:${versions.arangoData}"
             api "org.testcontainers:testcontainers:${versions.testContainers}"
+            api "io.swagger.core.v3:swagger-annotations:2.1.4"
         }
     }
 }

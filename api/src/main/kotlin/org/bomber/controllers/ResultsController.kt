@@ -1,5 +1,6 @@
 package org.bomber.controllers
 
+import io.swagger.v3.oas.annotations.Operation
 import org.bomber.api.dto.requests.CreateResultRequest
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ import javax.validation.Valid
 class ResultsController {
 
     @PostMapping
+    @Operation(hidden = true)
     fun createResult(
         @RequestBody @Valid createRequest: CreateResultRequest
     ) = GlobalScope.launch {

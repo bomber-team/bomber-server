@@ -9,7 +9,6 @@ object ObjectPropertyConverter : Converter<ObjectPropertyDTO, ObjectProperty> {
         return ObjectProperty(
             name = source.name,
             isGenerated = source.isGenerated,
-            generatorType = source.generatorType?.let { GeneratorTypeConverter.convert(it) },
             config = source.config?.let { GeneratorConfigConverter.convert(it) },
             properties = source.properties.mapValues { BodyParamConverter.convert(it.value) }
         )

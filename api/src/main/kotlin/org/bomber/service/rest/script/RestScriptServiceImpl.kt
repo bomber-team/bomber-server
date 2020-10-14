@@ -4,7 +4,7 @@ import org.bomber.converter.dto.script.RestScriptDTOConverter
 import org.bomber.converter.model.RestConfigurationConverter
 import org.bomber.api.dto.requests.CreateScriptRequest
 import org.bomber.api.dto.requests.UpdateScriptRequest
-import org.bomber.api.dto.script.RestScriptDTO
+import org.bomber.api.dto.script.RestScriptDto
 import org.bomber.api.dto.script.RestScriptItemsDTO
 import org.bomber.exception.RestScriptNotFoundException
 import org.bomber.exception.RestScriptUpdateException
@@ -22,7 +22,7 @@ import java.util.*
 class RestScriptServiceImpl(
     private val repository: RestScriptRepository
 ) : RestScriptService {
-    override suspend fun create(request: CreateScriptRequest): RestScriptDTO {
+    override suspend fun create(request: CreateScriptRequest): RestScriptDto {
         val model = RestScript(
             id = UUID.randomUUID().toString(),
             schemeId = request.schemeId,
@@ -37,7 +37,7 @@ class RestScriptServiceImpl(
         return RestScriptDTOConverter.convert(result)
     }
 
-    override suspend fun update(id: String, request: UpdateScriptRequest): RestScriptDTO {
+    override suspend fun update(id: String, request: UpdateScriptRequest): RestScriptDto {
         val updateScript = UpdateScript(
             name = request.name,
             address = request.address,
@@ -49,7 +49,7 @@ class RestScriptServiceImpl(
         } ?: throw RestScriptUpdateException(id)
     }
 
-    override suspend fun get(id: String): RestScriptDTO {
+    override suspend fun get(id: String): RestScriptDto {
         val restScript = repository.get(id)
             ?: throw RestScriptNotFoundException(id)
         return RestScriptDTOConverter.convert(restScript)

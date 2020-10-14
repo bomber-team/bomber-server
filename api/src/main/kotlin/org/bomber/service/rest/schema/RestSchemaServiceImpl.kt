@@ -5,7 +5,7 @@ import org.bomber.converter.model.schema.RequestParamConverter
 import org.bomber.api.dto.requests.CreateRestSchemaRequest
 import org.bomber.api.dto.requests.UpdateRestSchemaRequest
 import org.bomber.api.dto.schema.RestSchemaDTO
-import org.bomber.api.dto.schema.RestSchemaItemsDTO
+import org.bomber.api.dto.schema.RestSchemaItemsDto
 import org.bomber.exception.RestSchemaNotFoundException
 import org.bomber.model.schema.RestSchema
 import org.bomber.repository.rest.schema.RestSchemaRepository
@@ -38,9 +38,9 @@ class RestSchemaServiceImpl(
         return RestSchemaDTOConverter.convert(schema)
     }
 
-    override suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDTO {
+    override suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDto {
         val schemas = restSchemaRepository.getSchemas()
-        return RestSchemaItemsDTO(
+        return RestSchemaItemsDto(
             items = schemas.map { RestSchemaDTOConverter.convert(it) }
         )
     }

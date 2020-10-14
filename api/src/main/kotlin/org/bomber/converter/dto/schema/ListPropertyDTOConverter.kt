@@ -27,7 +27,6 @@ object ListPropertyDTOConverter : Converter<ListProperty<*>, ListPropertyDTO<*>>
             ListPropertyDTO<Any>(
                 name = source.name,
                 isGenerated = source.isGenerated,
-                generatorType = source.generatorType?.let { GeneratorTypeDTOConverter.convert(it) },
                 config = source.config?.let { GeneratorConfigDTOConverter.convert(it) },
                 value = listOf()
             )
@@ -38,7 +37,6 @@ object ListPropertyDTOConverter : Converter<ListProperty<*>, ListPropertyDTO<*>>
         return ListPropertyDTO(
             name = source.name,
             isGenerated = source.isGenerated,
-            generatorType = source.generatorType?.let { GeneratorTypeDTOConverter.convert(it) },
             config = source.config?.let { GeneratorConfigDTOConverter.convert(it) },
             value = source.value.map { SimplePropertyDTOConverter.convert(it) as SimplePropertyDTO<T> }
         )

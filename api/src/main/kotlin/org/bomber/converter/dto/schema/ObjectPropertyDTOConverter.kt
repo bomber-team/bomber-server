@@ -9,9 +9,6 @@ object ObjectPropertyDTOConverter : Converter<ObjectProperty, ObjectPropertyDTO>
         return ObjectPropertyDTO(
             name = source.name,
             isGenerated = source.isGenerated,
-            generatorType = source.generatorType?.let {
-                GeneratorTypeDTOConverter.convert(it)
-            },
             config = source.config?.let {
                 GeneratorConfigDTOConverter.convert(it)
             },

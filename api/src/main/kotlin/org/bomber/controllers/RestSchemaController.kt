@@ -3,7 +3,7 @@ package org.bomber.controllers
 import org.bomber.api.dto.requests.CreateRestSchemaRequest
 import org.bomber.api.dto.requests.UpdateRestSchemaRequest
 import org.bomber.api.dto.schema.RestSchemaDTO
-import org.bomber.api.dto.schema.RestSchemaItemsDTO
+import org.bomber.api.dto.schema.RestSchemaItemsDto
 import org.bomber.service.rest.schema.RestSchemaService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -45,7 +45,7 @@ class RestSchemaController(
     suspend fun getList(
         @RequestParam("offset") offset: Int,
         @RequestParam("limit") limit: Int
-    ): ResponseEntity<RestSchemaItemsDTO> {
+    ): ResponseEntity<RestSchemaItemsDto> {
         val result = restSchemaService.getAll(offset, limit)
         return ResponseEntity.ok(result)
     }
