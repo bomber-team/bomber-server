@@ -11,6 +11,9 @@ springBoot {
 }
 
 repositories {
+    maven {
+        url "https://dl.bintray.com/kostya05983/bomber"
+    }
     mavenCentral()
 }
 
@@ -24,6 +27,8 @@ dependencies {
     implementation "org.springdoc:springdoc-openapi-kotlin:${versions.springDoc}"
     implementation "org.springframework.cloud:spring-cloud-stream:${versions.springCloud}"
     implementation "io.nats:nats-spring-boot-starter:${versions.springNats}"
+
+    implementation "org.bomber.proto:rest:1.0.1"
 
     //jetbrains
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactor"
