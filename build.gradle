@@ -11,7 +11,9 @@ ext {
             arangoDriver  : "5.0.4",
             testContainers: "1.11.2",
             ktorClient    : "1.2.5",
-            springDoc     : "1.4.3"
+            springDoc     : "1.4.3",
+            springCloud   : '3.0.8.RELEASE',
+            springNats    : '0.4.0'
     ]
 }
 

@@ -14,17 +14,19 @@ import javax.validation.Valid
 )
 class TestFormController {
 
-    @PostMapping(consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE])
+    @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun createForm(
         @RequestBody @Valid request: CreateTestFormRequest
     ) = GlobalScope.launch {
     }
 
-    @PatchMapping("/{formId}", consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE])
+    @PatchMapping("/{formId}", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun updateForm(
         @PathVariable formId: String,
         @RequestBody @Valid request: UpdateTestFormRequest
     ) = GlobalScope.launch {
         TODO("Not implemented")
     }
+
+
 }

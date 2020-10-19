@@ -11,3 +11,16 @@ org:
         enabled: true
         host: arango-bomber
         database: test
+nats:
+  spring:
+    server:
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: dataIn
+          binder: nats
+        output:
+          destination: dataOut
+          binder: nats
