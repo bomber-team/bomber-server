@@ -1,14 +1,16 @@
 package org.bomber.service.form
 
 import org.bomber.api.dto.form.TestFormDto
-import org.bomber.api.dto.form.TestFormStatusDto
 import org.bomber.api.dto.requests.CreateTestFormRequest
 import org.bomber.api.dto.requests.UpdateTestFormRequest
 import org.bomber.converter.dto.form.TestFormDtoConverter
 import org.bomber.exception.RestSchemaNotFoundException
 import org.bomber.exception.RestScriptNotFoundException
+import org.bomber.exception.TestFormNotFoundException
+import org.bomber.exception.TestFormUpdateException
 import org.bomber.model.form.TestForm
 import org.bomber.model.form.TestFormStatus
+import org.bomber.repository.form.FormUpdate
 import org.bomber.repository.form.TestFormRepository
 import org.bomber.repository.rest.schema.RestSchemaRepository
 import org.bomber.repository.rest.script.RestScriptRepository
@@ -39,19 +41,30 @@ class TestFormService(
         }
     }
 
-    fun update(request: UpdateTestFormRequest): TestFormDto {
+    suspend fun update(formId: String, request: UpdateTestFormRequest): TestFormDto {
+        scriptRepository.get(request.scriptId) ?: throw RestScriptNotFoundException(request.scriptId)
+        schemaRepository.getSchema(request.schemaId) ?: throw RestSchemaNotFoundException(request.schemaId)
+        val update = FormUpdate(
+            name = request.name,
+            scriptId = request.scriptId,
+            schemaId = request.schemaId
+        )
 
+        return repository.update(formId, update)?.let {
+            TestFormDtoConverter.convert(it)
+        } ?: throw TestFormUpdateException(formId)
     }
 
-    fun get(formId: String): TestFormDto {
-
+    suspend fun get(formId: String): TestFormDto {
+        return repository.get(formId)?.let {
+            TestFormDtoConverter.convert(it)
+        } ?: throw TestFormNotFoundException(formId)
     }
 
     fun run(formId: String): TestFormDto {
-
+        TODO("Not implemented")
     }
 
     fun delete(formId: String) {
-
     }
 }
