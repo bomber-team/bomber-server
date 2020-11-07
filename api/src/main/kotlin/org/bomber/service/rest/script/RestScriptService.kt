@@ -17,5 +17,5 @@ interface RestScriptService {
         offset: Int
     ): RestScriptItemsDTO
 
-    suspend fun delete(id: String): Unit
+    suspend fun delete(id: String)
 }

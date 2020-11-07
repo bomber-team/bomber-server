@@ -2,8 +2,7 @@ package org.bomber.controllers
 
 import org.bomber.api.dto.requests.CreateTestFormRequest
 import org.bomber.api.dto.requests.UpdateTestFormRequest
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import org.bomber.service.coroutines.coroutineToMono
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -17,16 +16,21 @@ class TestFormController {
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun createForm(
         @RequestBody @Valid request: CreateTestFormRequest
-    ) = GlobalScope.launch {
+    ) = coroutineToMono {
     }
 
     @PatchMapping("/{formId}", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun updateForm(
         @PathVariable formId: String,
         @RequestBody @Valid request: UpdateTestFormRequest
-    ) = GlobalScope.launch {
+    ) = coroutineToMono {
         TODO("Not implemented")
     }
 
-
+    @PostMapping("/{formId}/run")
+    fun runForm(
+        @PathVariable formId: String
+    ) = coroutineToMono {
+        TODO("Not implemented")
+    }
 }

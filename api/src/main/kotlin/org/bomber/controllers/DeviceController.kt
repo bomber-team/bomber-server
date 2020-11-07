@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*
 class DeviceController(
     private val deviceService: DeviceService
 ) {
-
     @PostMapping
     @Operation(hidden = true)
     suspend fun createDevice(
