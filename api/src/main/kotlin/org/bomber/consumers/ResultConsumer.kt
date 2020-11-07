@@ -1,16 +1,11 @@
 package org.bomber.consumers
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.reactor.mono
 import org.bomber.converter.model.ResultConverter
 import org.bomber.repository.rest.result.ResultRepository
+import org.bomber.service.coroutines.coroutineToMono
 import org.bomber.team.contracts.Result
 import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
-import reactor.util.context.Context
 import java.util.function.Consumer
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
 class ResultConsumer(
     private val resultRepository: ResultRepository
@@ -23,19 +18,5 @@ class ResultConsumer(
                 resultRepository.save(modelResult)
             }
         }.subscribe()
-    }
-
-    fun <T> coroutineToMono(func: suspend CoroutineScope.() -> T?): Mono<T> {
-        return Mono.subscriberContext().flatMap { ctx ->
-            mono(ctx.toCoroutineContext(), func)
-        }
-    }
-
-    fun Context.toCoroutineContext(): CoroutineContext {
-        return this.stream()
-            .filter { it.value is CoroutineContext }
-            .map { it.value as CoroutineContext }
-            .reduce { context1, context2 -> context1 + context2 }
-            .orElse(EmptyCoroutineContext)
     }
 }
