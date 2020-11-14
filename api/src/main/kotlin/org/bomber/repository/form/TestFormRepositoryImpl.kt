@@ -13,7 +13,7 @@ class TestFormRepositoryImpl : TestFormRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun delete() {
+    override suspend fun delete(formId: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -69,6 +69,9 @@ class TestFormService(
         } ?: throw TestFormUpdateException(formId)
     }
 
-    fun delete(formId: String) {
+    suspend fun delete(formId: String) {
+        val form = repository.get(formId) ?: throw TestFormNotFoundException(formId)
+        if (form.status == TestFormStatus.IN_PROGRESS) throw TestFormWrongStatusException(formId)
+        repository.delete(form.id)
     }
 }

@@ -10,5 +10,5 @@ interface TestFormRepository {
 
     suspend fun get(id: String): TestForm?
 
-    suspend fun delete()
+    suspend fun delete(formId: String)
 }
