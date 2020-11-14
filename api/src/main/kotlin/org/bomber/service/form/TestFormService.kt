@@ -22,7 +22,7 @@ class TestFormService(
 ) {
     suspend fun create(request: CreateTestFormRequest): TestFormDto {
         scriptRepository.get(request.scriptId) ?: throw RestScriptNotFoundException(request.scriptId)
-        schemaRepository.getSchema(request.schemaId) ?: throw RestSchemaNotFoundException(request.schemaId)
+        schemaRepository.get(request.schemaId) ?: throw RestSchemaNotFoundException(request.schemaId)
 
         val form = TestForm(
             id = UUID.randomUUID().toString(),
@@ -40,7 +40,7 @@ class TestFormService(
 
     suspend fun update(formId: String, request: UpdateTestFormRequest): TestFormDto {
         scriptRepository.get(request.scriptId) ?: throw RestScriptNotFoundException(request.scriptId)
-        schemaRepository.getSchema(request.schemaId) ?: throw RestSchemaNotFoundException(request.schemaId)
+        schemaRepository.get(request.schemaId) ?: throw RestSchemaNotFoundException(request.schemaId)
         val update = FormUpdate(
             name = request.name,
             scriptId = request.scriptId,

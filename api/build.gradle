@@ -29,6 +29,7 @@ dependencies {
     implementation "org.springdoc:springdoc-openapi-kotlin:${versions.springDoc}"
     implementation "org.springframework.cloud:spring-cloud-stream:${versions.springCloud}"
     implementation "io.nats:nats-spring-boot-starter:${versions.springNats}"
+    implementation "org.springframework.data:spring-data-mongodb"
 
     implementation "org.bomber.proto:rest:1.0.5"
 

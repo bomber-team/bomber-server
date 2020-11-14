@@ -24,7 +24,7 @@ class RestSchemaServiceImpl(
             requestParams = request.requestParams.map { RequestParamConverter.convert(it) },
             body = request.body
         )
-        val result = restSchemaRepository.saveSchema(model)
+        val result = restSchemaRepository.save(model)
         return RestSchemaDTOConverter.convert(result)
     }
 
@@ -33,20 +33,20 @@ class RestSchemaServiceImpl(
     }
 
     override suspend fun get(id: String): RestSchemaDTO {
-        val schema = restSchemaRepository.getSchema(id)
+        val schema = restSchemaRepository.get(id)
             ?: throw RestSchemaNotFoundException(id)
         return RestSchemaDTOConverter.convert(schema)
     }
 
     override suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDto {
-        val schemas = restSchemaRepository.getSchemas()
+        val schemas = restSchemaRepository.getAll()
         return RestSchemaItemsDto(
             items = schemas.map { RestSchemaDTOConverter.convert(it) }
         )
     }
 
     override suspend fun delete(id: String) {
-        restSchemaRepository.deleteScheme(id)
+        restSchemaRepository.delete(id)
             ?: throw RestSchemaNotFoundException(id)
     }
 }

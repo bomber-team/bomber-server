@@ -1,37 +1,38 @@
 package org.bomber.repository.rest.schema
 
-import com.arangodb.model.DocumentDeleteOptions
-import com.arangodb.springframework.core.ArangoOperations
+import kotlinx.coroutines.reactive.awaitFirst
+import kotlinx.coroutines.reactive.awaitFirstOrNull
 import org.bomber.model.schema.RestSchema
-import org.slf4j.LoggerFactory
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate
+import org.springframework.data.mongodb.core.query.Criteria
+import org.springframework.data.mongodb.core.query.Query
+import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.stereotype.Component
 
 @Component
 class RestSchemaRepositoryImpl(
-    private val arangoTemplate: ArangoOperations
+    private val mongoTemplate: ReactiveMongoTemplate
 ) : RestSchemaRepository {
-    private val logger = LoggerFactory.getLogger(this::class.java)
-
-    override suspend fun saveSchema(restSchema: RestSchema): RestSchema {
-        val result = arangoTemplate.insert(restSchema)
-        logger.debug("Insert restSchema, result log=$result")
-        return restSchema
+    override suspend fun save(restSchema: RestSchema): RestSchema {
+        return mongoTemplate.save(restSchema).awaitFirst()
     }
 
-    override suspend fun getSchema(id: String): RestSchema? {
-        val result = arangoTemplate.find(id, RestSchema::class.java)
-        return result.orElse(null)
+    override suspend fun get(id: String): RestSchema? {
+        val criteria = Criteria.where(RestSchema::id.name).isEqualTo(id)
+        val query = Query().addCriteria(criteria)
+
+        return mongoTemplate.find(query, RestSchema::class.java).awaitFirstOrNull()
     }
 
-    override suspend fun getSchemas(): List<RestSchema> {
-        val result = arangoTemplate.findAll(RestSchema::class.java)
-        return result.toList()
+    override suspend fun getAll(filter: SchemaFilter): List<RestSchema> {
+        val query = Query().limit(filter.take).skip(filter.skip)
+        return mongoTemplate.find(query, RestSchema::class.java).collectList().awaitFirst()
     }
 
-    override suspend fun deleteScheme(id: String): Long? {
-        val options = DocumentDeleteOptions()
-        options.waitForSync(true)
-        val result = arangoTemplate.delete(id, RestSchema::class.java, options)
-        return result?.let { 1 }
+    override suspend fun delete(id: String): Long? {
+        val criteria = Criteria.where(RestSchema::id.name).isEqualTo(id)
+        val query = Query().addCriteria(criteria)
+
+        return mongoTemplate.remove(query, RestSchema::class.java).awaitFirstOrNull()?.deletedCount
     }
 }
