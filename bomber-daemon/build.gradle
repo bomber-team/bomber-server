@@ -1,0 +1,60 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.4.10'
+}
+group 'Server-bomber'
+
+version '1.0-SNAPSHOT'
+
+springBoot {
+    buildInfo()
+}
+
+repositories {
+    maven {
+        url "https://dl.bintray.com/kostya05983/bomber"
+    }
+    mavenCentral()
+}
+
+dependencies {
+    api project(":model")
+
+    implementation project(":core:service")
+
+    //Spring
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation "org.springdoc:springdoc-openapi-webflux-ui:${versions.springDoc}"
+    implementation "org.springdoc:springdoc-openapi-kotlin:${versions.springDoc}"
+    implementation "org.springframework.cloud:spring-cloud-stream:${versions.springCloud}"
+    implementation "io.nats:nats-spring-boot-starter:${versions.springNats}"
+    implementation "org.springframework.data:spring-data-mongodb"
+
+    implementation "org.bomber.proto:rest:1.0.5"
+
+    //jetbrains
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactor"
+
+    //serialization
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+
+    //Test
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude module: 'junit'
+    }
+    testImplementation group: 'org.springframework.security', name: 'spring-security-test'
+    testImplementation group: 'org.testcontainers', name: 'testcontainers'
+}
+compileJava.dependsOn(processResources)
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

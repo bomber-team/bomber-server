@@ -5,3 +5,4 @@ include ':model'
 include ':core:service'
 include ':client'
 include ":client:devices"
+include 'bomber-daemon'
