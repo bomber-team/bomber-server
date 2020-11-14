@@ -4,10 +4,7 @@ import org.bomber.api.dto.form.TestFormDto
 import org.bomber.api.dto.requests.CreateTestFormRequest
 import org.bomber.api.dto.requests.UpdateTestFormRequest
 import org.bomber.converter.dto.form.TestFormDtoConverter
-import org.bomber.exception.RestSchemaNotFoundException
-import org.bomber.exception.RestScriptNotFoundException
-import org.bomber.exception.TestFormNotFoundException
-import org.bomber.exception.TestFormUpdateException
+import org.bomber.exception.*
 import org.bomber.model.form.TestForm
 import org.bomber.model.form.TestFormStatus
 import org.bomber.repository.form.FormUpdate
@@ -30,7 +27,7 @@ class TestFormService(
         val form = TestForm(
             id = UUID.randomUUID().toString(),
             name = request.name,
-            status = TestFormStatus.NEW,
+            status = TestFormStatus.READY,
             schemaId = request.schemaId,
             scriptId = request.scriptId,
             version = null
@@ -61,8 +58,15 @@ class TestFormService(
         } ?: throw TestFormNotFoundException(formId)
     }
 
-    fun run(formId: String): TestFormDto {
-        TODO("Not implemented")
+    suspend fun run(formId: String): TestFormDto {
+        val form = repository.get(formId) ?: throw TestFormNotFoundException(formId)
+        if (form.status != TestFormStatus.READY) throw TestFormWrongStatusException(formId)
+        val update = FormUpdate(
+            status = TestFormStatus.IN_PROGRESS
+        )
+        return repository.update(formId, update)?.let {
+            TestFormDtoConverter.convert(it)
+        } ?: throw TestFormUpdateException(formId)
     }
 
     fun delete(formId: String) {

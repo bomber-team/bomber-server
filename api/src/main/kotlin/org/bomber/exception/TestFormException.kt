@@ -21,3 +21,8 @@ class TestFormNotFoundException(id: String) : TestFormException(
     status = HttpStatus.NOT_FOUND,
     message = "Test form with id=$id was not found"
 )
+
+class TestFormWrongStatusException(id: String) : TestFormException(
+    status = HttpStatus.CONFLICT,
+    message = "Test form with id=$id has wrong status"
+)
