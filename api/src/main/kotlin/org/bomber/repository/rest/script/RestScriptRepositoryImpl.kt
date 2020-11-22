@@ -1,50 +1,65 @@
 package org.bomber.repository.rest.script
 
-import com.arangodb.entity.DocumentUpdateEntity
-import com.arangodb.model.DocumentDeleteOptions
-import com.arangodb.model.DocumentUpdateOptions
-import com.arangodb.springframework.core.ArangoOperations
+import kotlinx.coroutines.reactive.awaitFirst
+import kotlinx.coroutines.reactive.awaitFirstOrNull
 import org.bomber.model.script.RestScript
 import org.slf4j.LoggerFactory
+import org.springframework.data.mongodb.core.FindAndModifyOptions
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate
+import org.springframework.data.mongodb.core.query.Criteria
+import org.springframework.data.mongodb.core.query.Query
+import org.springframework.data.mongodb.core.query.Update
+import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.stereotype.Component
 
 @Component
 class RestScriptRepositoryImpl(
-    private val arangoTemplate: ArangoOperations
+    private val mongoTemplate: ReactiveMongoTemplate
 ) : RestScriptRepository {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     override suspend fun save(restScript: RestScript): RestScript {
-        val result = arangoTemplate.insert(restScript)
-        logger.debug("Insert script with $result")
-        return restScript
+        return mongoTemplate.save(restScript).awaitFirst()
     }
 
     override suspend fun update(id: String, update: UpdateScript): RestScript? {
-        val options = DocumentUpdateOptions()
-        options.returnNew(true)
-        val entity = arangoTemplate.update(id, update, options)
-        return (entity as? DocumentUpdateEntity<RestScript>)?.new
+        val criteria = Criteria.where(RestScript::id.name).isEqualTo(id)
+
+        val query = Query().addCriteria(criteria)
+        val update = Update().apply {
+            update.address?.let {
+                set(RestScript::address.name, it)
+            }
+            update.configuration?.let {
+                set(RestScript::configuration.name, it)
+            }
+            update.name?.let {
+                set(RestScript::name.name, it)
+            }
+            update.requestMethod?.let {
+                set(RestScript::requestMethod.name, it)
+            }
+        }
+
+        val options = FindAndModifyOptions().returnNew(true)
+        return mongoTemplate.findAndModify(query, update, options, RestScript::class.java).awaitFirstOrNull()
     }
 
     override suspend fun get(id: String): RestScript? {
-        val result = arangoTemplate.find(id, RestScript::class.java)
-        return result.orElse(null)
+        val criteria = Criteria.where(RestScript::id.name).isEqualTo(id)
+        val query = Query().addCriteria(criteria)
+
+        return mongoTemplate.find(query, RestScript::class.java).awaitFirstOrNull()
     }
 
     override suspend fun getAll(): List<RestScript> {
-        val result = arangoTemplate.findAll(RestScript::class.java)
-        return result.toList()
+        return mongoTemplate.findAll(RestScript::class.java).collectList().awaitFirst()
     }
 
     override suspend fun delete(id: String): Long? {
-        val options = DocumentDeleteOptions()
-        options.waitForSync(true)
-        val result = arangoTemplate.delete(id, RestScript::class.java, options)
-        return if (result == null) {
-            null
-        } else {
-            1
-        }
+        val criteria = Criteria.where(RestScript::id.name).isEqualTo(id)
+        val query = Query().addCriteria(criteria)
+
+        return mongoTemplate.remove(query, RestScript::class.java).awaitFirstOrNull()?.let { it.deletedCount }
     }
 }
