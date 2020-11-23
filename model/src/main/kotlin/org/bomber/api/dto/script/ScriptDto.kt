@@ -23,7 +23,6 @@ sealed class ScriptDto(
 @Schema(name = "RestScript")
 data class RestScriptDto(
     val id: String,
-    val schemeId: String,
     val name: String,
     val address: String,
     val requestMethod: String,

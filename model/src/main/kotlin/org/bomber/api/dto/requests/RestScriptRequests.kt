@@ -3,7 +3,6 @@ package org.bomber.api.dto.requests
 import org.bomber.api.dto.script.RestConfigurationDto
 
 data class CreateScriptRequest(
-    val schemeId: String,
     val name: String,
     val address: String,
     val requestMethod: String,
