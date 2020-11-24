@@ -5,8 +5,7 @@ import org.bomber.api.dto.requests.CreateTestFormRequest
 import org.bomber.api.dto.requests.UpdateTestFormRequest
 import org.bomber.converter.dto.form.TestFormDtoConverter
 import org.bomber.exception.*
-import org.bomber.model.form.TestForm
-import org.bomber.model.form.TestFormStatus
+import org.bomber.model.form.*
 import org.bomber.repository.form.FormUpdate
 import org.bomber.repository.form.TestFormRepository
 import org.bomber.repository.rest.schema.RestSchemaRepository
@@ -64,7 +63,15 @@ class TestFormService(
         val form = repository.get(formId) ?: throw TestFormNotFoundException(formId)
         if (form.status != TestFormStatus.READY) throw TestFormWrongStatusException(formId)
         val update = FormUpdate(
-            status = TestFormStatus.IN_PROGRESS
+            status = TestFormStatus.IN_PROGRESS,
+            event = FormDomainEvent(
+                actions = listOf(
+                    RunFormAction(
+                        schemaId = form.schemaId,
+                        scriptId = form.scriptId
+                    )
+                )
+            )
         )
         return repository.update(formId, update)?.let {
             TestFormDtoConverter.convert(it)

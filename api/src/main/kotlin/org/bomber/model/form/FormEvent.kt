@@ -4,6 +4,10 @@ import org.bomber.service.events.Action
 import org.bomber.service.events.DatabaseEvent
 import java.time.Instant
 
+data class FormDomainEvent(
+    val actions: List<FormAction>
+)
+
 class FormDatabaseEvent(
     id: String,
     entityId: String,
