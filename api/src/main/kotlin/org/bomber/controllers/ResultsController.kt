@@ -1,9 +1,10 @@
 package org.bomber.controllers
 
 import io.swagger.v3.oas.annotations.Operation
-import org.bomber.api.dto.requests.CreateResultRequest
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.bomber.api.dto.result.ResultDto
+import org.bomber.service.result.ResultService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,12 +15,15 @@ import javax.validation.Valid
 @RequestMapping(
     value = ["/bomber/bomber-api/v1/results"]
 )
-class ResultsController {
+class ResultsController(
+    private val resultService: ResultService
+) {
 
     @PostMapping
     @Operation(hidden = true)
     fun createResult(
-        @RequestBody @Valid createRequest: CreateResultRequest
+        @RequestBody @Valid result: ResultDto
     ) = GlobalScope.launch {
+        resultService.save(result)
     }
 }
