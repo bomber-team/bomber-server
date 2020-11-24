@@ -55,8 +55,8 @@ class RestScriptServiceImpl(
     }
 
     override suspend fun getAll(
-        limit: Int,
-        offset: Int
+        take: Long,
+        skip: Int
     ): RestScriptItemsDTO {
         val scripts = repository.getAll()
         return RestScriptItemsDTO(

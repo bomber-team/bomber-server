@@ -42,10 +42,10 @@ class RestScriptController(
 
     @GetMapping
     suspend fun getList(
-        @RequestParam("offset") offset: Int,
-        @RequestParam("limit") limit: Int
+        @RequestParam("skip") skip: Long,
+        @RequestParam("take") take: Int
     ): ResponseEntity<RestScriptItemsDTO> {
-        val scriptItems = scriptService.getAll(offset, limit)
+        val scriptItems = scriptService.getAll(skip, take)
         return ResponseEntity.status(HttpStatus.OK).body(scriptItems)
     }
 

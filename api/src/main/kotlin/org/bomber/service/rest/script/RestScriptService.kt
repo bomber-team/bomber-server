@@ -13,8 +13,8 @@ interface RestScriptService {
     suspend fun get(id: String): RestScriptDto
 
     suspend fun getAll(
-        limit: Int,
-        offset: Int
+        take: Long,
+        skip: Int
     ): RestScriptItemsDTO
 
     suspend fun delete(id: String)

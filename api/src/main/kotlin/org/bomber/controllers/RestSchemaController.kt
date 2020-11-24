@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping(
-    value = ["/bomber/bomber-api/schema/v1"]
+    value = ["/bomber/bomber-api/v1/schemas"]
 )
 class RestSchemaController(
     private val restSchemaService: RestSchemaService
@@ -43,10 +43,10 @@ class RestSchemaController(
 
     @GetMapping
     suspend fun getList(
-        @RequestParam("offset") offset: Int,
-        @RequestParam("limit") limit: Int
+        @RequestParam("skip") skip: Long,
+        @RequestParam("take") take: Int
     ): ResponseEntity<RestSchemaItemsDto> {
-        val result = restSchemaService.getAll(offset, limit)
+        val result = restSchemaService.getAll(skip, take)
         return ResponseEntity.ok(result)
     }
 
