@@ -9,12 +9,13 @@ import org.bomber.api.dto.schema.RestSchemaItemsDto
 import org.bomber.exception.RestSchemaNotFoundException
 import org.bomber.model.schema.RestSchema
 import org.bomber.repository.rest.schema.RestSchemaRepository
+import org.bomber.repository.rest.schema.SchemaFilter
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
 class RestSchemaServiceImpl(
-    private val restSchemaRepository: RestSchemaRepository
+    private val repository: RestSchemaRepository
 ) : RestSchemaService {
     override suspend fun create(request: CreateRestSchemaRequest): RestSchemaDTO {
         val model = RestSchema(
@@ -24,7 +25,7 @@ class RestSchemaServiceImpl(
             requestParams = request.requestParams.map { RequestParamConverter.convert(it) },
             body = request.body
         )
-        val result = restSchemaRepository.save(model)
+        val result = repository.save(model)
         return RestSchemaDTOConverter.convert(result)
     }
 
@@ -33,20 +34,25 @@ class RestSchemaServiceImpl(
     }
 
     override suspend fun get(id: String): RestSchemaDTO {
-        val schema = restSchemaRepository.get(id)
+        val schema = repository.get(id)
             ?: throw RestSchemaNotFoundException(id)
         return RestSchemaDTOConverter.convert(schema)
     }
 
-    override suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDto {
-        val schemas = restSchemaRepository.getAll()
+    override suspend fun getAll(offset: Long, limit: Int): RestSchemaItemsDto {
+        val filter = SchemaFilter(
+            take = limit,
+            skip = offset
+
+        )
+        val schemas = repository.getAll(filter)
         return RestSchemaItemsDto(
             items = schemas.map { RestSchemaDTOConverter.convert(it) }
         )
     }
 
     override suspend fun delete(id: String) {
-        restSchemaRepository.delete(id)
+        repository.delete(id)
             ?: throw RestSchemaNotFoundException(id)
     }
 }

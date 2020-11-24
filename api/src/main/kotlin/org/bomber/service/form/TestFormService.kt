@@ -30,7 +30,8 @@ class TestFormService(
             status = TestFormStatus.READY,
             schemaId = request.schemaId,
             scriptId = request.scriptId,
-            version = null
+            version = null,
+            event = null
         )
 
         return repository.save(form).let {
@@ -44,7 +45,8 @@ class TestFormService(
         val update = FormUpdate(
             name = request.name,
             scriptId = request.scriptId,
-            schemaId = request.schemaId
+            schemaId = request.schemaId,
+            status = TestFormStatus.READY
         )
 
         return repository.update(formId, update)?.let {

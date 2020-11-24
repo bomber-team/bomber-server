@@ -25,7 +25,6 @@ class RestScriptServiceImpl(
     override suspend fun create(request: CreateScriptRequest): RestScriptDto {
         val model = RestScript(
             id = UUID.randomUUID().toString(),
-            schemeId = request.schemeId,
             name = request.name,
             address = request.address,
             requestMethod = request.requestMethod,

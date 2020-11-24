@@ -12,7 +12,7 @@ interface RestSchemaService {
 
     suspend fun get(id: String): RestSchemaDTO
 
-    suspend fun getAll(offset: Int, limit: Int): RestSchemaItemsDto
+    suspend fun getAll(offset: Long, limit: Int): RestSchemaItemsDto
 
     suspend fun delete(id: String)
 }

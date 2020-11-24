@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component
 
 @Component
 class RestScriptRepositoryImpl(
-    private val mongoTemplate: ReactiveMongoTemplate
+    private val template: ReactiveMongoTemplate
 ) : RestScriptRepository {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     override suspend fun save(restScript: RestScript): RestScript {
-        return mongoTemplate.save(restScript).awaitFirst()
+        return template.save(restScript).awaitFirst()
     }
 
     override suspend fun update(id: String, update: UpdateScript): RestScript? {
@@ -42,24 +42,24 @@ class RestScriptRepositoryImpl(
         }
 
         val options = FindAndModifyOptions().returnNew(true)
-        return mongoTemplate.findAndModify(query, update, options, RestScript::class.java).awaitFirstOrNull()
+        return template.findAndModify(query, update, options, RestScript::class.java).awaitFirstOrNull()
     }
 
     override suspend fun get(id: String): RestScript? {
         val criteria = Criteria.where(RestScript::id.name).isEqualTo(id)
         val query = Query().addCriteria(criteria)
 
-        return mongoTemplate.find(query, RestScript::class.java).awaitFirstOrNull()
+        return template.find(query, RestScript::class.java).awaitFirstOrNull()
     }
 
     override suspend fun getAll(): List<RestScript> {
-        return mongoTemplate.findAll(RestScript::class.java).collectList().awaitFirst()
+        return template.findAll(RestScript::class.java).collectList().awaitFirst()
     }
 
     override suspend fun delete(id: String): Long? {
         val criteria = Criteria.where(RestScript::id.name).isEqualTo(id)
         val query = Query().addCriteria(criteria)
 
-        return mongoTemplate.remove(query, RestScript::class.java).awaitFirstOrNull()?.let { it.deletedCount }
+        return template.remove(query, RestScript::class.java).awaitFirstOrNull()?.let { it.deletedCount }
     }
 }
