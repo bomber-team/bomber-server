@@ -54,6 +54,12 @@ class TestFormRepositoryImpl(
         return template.find(query, TestForm::class.java).awaitFirstOrNull()
     }
 
+    override suspend fun getAll(filter: FormsFilter): List<TestForm> {
+        val query = Query().skip(filter.skip).limit(filter.take)
+
+        return template.find(query, TestForm::class.java).collectList().awaitFirst()
+    }
+
     override suspend fun delete(formId: String) {
         val criteria = Criteria.where(TestForm::id.name).isEqualTo(formId)
         val query = Query().addCriteria(criteria)

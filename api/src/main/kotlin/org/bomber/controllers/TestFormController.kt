@@ -34,6 +34,15 @@ class TestFormController(
         ResponseEntity.ok(form)
     }
 
+    @GetMapping
+    fun getForms(
+        @RequestParam("skip") skip: Long,
+        @RequestParam("take") take: Int
+    ) = coroutineToMono {
+        val forms = service.getAll(take, skip)
+        ResponseEntity.ok(forms)
+    }
+
     @PostMapping("/{formId}/run")
     fun runForm(
         @PathVariable formId: String

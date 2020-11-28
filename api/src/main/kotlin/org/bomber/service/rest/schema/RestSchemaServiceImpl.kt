@@ -20,6 +20,7 @@ class RestSchemaServiceImpl(
     override suspend fun create(request: CreateRestSchemaRequest): RestSchemaDTO {
         val model = RestSchema(
             id = UUID.randomUUID().toString(),
+            name = request.name,
             pathVariables = request.pathVariables,
             headers = request.headers,
             requestParams = request.requestParams.map { RequestParamConverter.convert(it) },

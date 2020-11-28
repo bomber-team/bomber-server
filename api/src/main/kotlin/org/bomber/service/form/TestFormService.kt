@@ -1,12 +1,14 @@
 package org.bomber.service.form
 
 import org.bomber.api.dto.form.TestFormDto
+import org.bomber.api.dto.form.TestFormItemsDto
 import org.bomber.api.dto.requests.CreateTestFormRequest
 import org.bomber.api.dto.requests.UpdateTestFormRequest
 import org.bomber.converter.dto.form.TestFormDtoConverter
 import org.bomber.exception.*
 import org.bomber.model.form.*
 import org.bomber.repository.form.FormUpdate
+import org.bomber.repository.form.FormsFilter
 import org.bomber.repository.form.TestFormRepository
 import org.bomber.repository.rest.schema.RestSchemaRepository
 import org.bomber.repository.rest.script.RestScriptRepository
@@ -21,13 +23,13 @@ class TestFormService(
 ) {
     suspend fun create(request: CreateTestFormRequest): TestFormDto {
         scriptRepository.get(request.scriptId) ?: throw RestScriptNotFoundException(request.scriptId)
-        schemaRepository.get(request.schemaId) ?: throw RestSchemaNotFoundException(request.schemaId)
+        schemaRepository.get(request.schemeId) ?: throw RestSchemaNotFoundException(request.schemeId)
 
         val form = TestForm(
             id = UUID.randomUUID().toString(),
             name = request.name,
             status = TestFormStatus.READY,
-            schemaId = request.schemaId,
+            schemaId = request.schemeId,
             scriptId = request.scriptId,
             version = null,
             event = null
@@ -40,11 +42,11 @@ class TestFormService(
 
     suspend fun update(formId: String, request: UpdateTestFormRequest): TestFormDto {
         scriptRepository.get(request.scriptId) ?: throw RestScriptNotFoundException(request.scriptId)
-        schemaRepository.get(request.schemaId) ?: throw RestSchemaNotFoundException(request.schemaId)
+        schemaRepository.get(request.schemeId) ?: throw RestSchemaNotFoundException(request.schemeId)
         val update = FormUpdate(
             name = request.name,
             scriptId = request.scriptId,
-            schemaId = request.schemaId,
+            schemaId = request.schemeId,
             status = TestFormStatus.READY
         )
 
@@ -57,6 +59,16 @@ class TestFormService(
         return repository.get(formId)?.let {
             TestFormDtoConverter.convert(it)
         } ?: throw TestFormNotFoundException(formId)
+    }
+
+    suspend fun getAll(take: Int, skip: Long): TestFormItemsDto {
+        val filter = FormsFilter(
+            take = take,
+            skip = skip
+        )
+        return TestFormItemsDto(
+            items = repository.getAll(filter).map { TestFormDtoConverter.convert(it) }
+        )
     }
 
     suspend fun run(formId: String): TestFormDto {

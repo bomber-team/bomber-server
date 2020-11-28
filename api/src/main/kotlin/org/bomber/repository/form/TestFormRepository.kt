@@ -10,5 +10,7 @@ interface TestFormRepository {
 
     suspend fun get(id: String): TestForm?
 
+    suspend fun getAll(filter: FormsFilter): List<TestForm>
+
     suspend fun delete(formId: String)
 }
