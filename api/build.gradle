@@ -30,15 +30,13 @@ dependencies {
     implementation "org.springframework.cloud:spring-cloud-stream:${versions.springCloud}"
     implementation "io.nats:nats-spring-boot-starter:${versions.springNats}"
     implementation "org.springframework.data:spring-data-mongodb"
+    implementation 'org.mongodb:mongodb-driver-reactivestreams'
+
 
     implementation "org.bomber.proto:rest:1.0.5"
 
     //jetbrains
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactor"
-
-    // Databases
-    implementation "com.arangodb:arangodb-java-driver-async"
-    implementation 'com.arangodb:arangodb-spring-data'
 
     //serialization
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
@@ -47,7 +45,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude module: 'junit'
     }
-    testImplementation group: 'org.springframework.security', name: 'spring-security-test'
     testImplementation group: 'org.testcontainers', name: 'testcontainers'
 }
 compileJava.dependsOn(processResources)

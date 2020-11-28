@@ -7,7 +7,6 @@ import org.bomber.model.form.TestFormStatus
 object TestFormStatusDtoConverter : Converter<TestFormStatus, TestFormStatusDto> {
     override fun convert(source: TestFormStatus): TestFormStatusDto {
         return when (source) {
-            TestFormStatus.NEW -> TestFormStatusDto.NEW
             TestFormStatus.READY -> TestFormStatusDto.READY
             TestFormStatus.IN_PROGRESS -> TestFormStatusDto.IN_PROGRESS
             TestFormStatus.ERROR -> TestFormStatusDto.ERROR

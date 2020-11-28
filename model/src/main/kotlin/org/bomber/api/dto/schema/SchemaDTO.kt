@@ -4,6 +4,7 @@ sealed class SchemaDTO
 
 data class RestSchemaDTO(
     val id: String,
+    val name: String,
     val pathVariables: Map<String, String>,
     val headers: Map<String, String>,
     val requestParams: List<RequestParamDto>,

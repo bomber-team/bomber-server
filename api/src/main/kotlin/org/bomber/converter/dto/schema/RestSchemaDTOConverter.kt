@@ -8,6 +8,7 @@ object RestSchemaDTOConverter : Converter<RestSchema, RestSchemaDTO> {
     override fun convert(source: RestSchema): RestSchemaDTO {
         return RestSchemaDTO(
             id = source.id,
+            name = source.name,
             pathVariables = source.pathVariables,
             headers = source.headers,
             requestParams = source.requestParams.map { RequestParamDTOConverter.convert(it) },

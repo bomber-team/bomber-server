@@ -7,13 +7,8 @@ import org.springframework.core.convert.converter.Converter
 object RestConfigurationDTOConverter : Converter<RestConfiguration, RestConfigurationDto> {
     override fun convert(source: RestConfiguration): RestConfigurationDto {
         return RestConfigurationDto(
-            amountRequest = source.amountRequest,
-            timeoutForOneRequest = source.timeoutForOneRequest,
-            timeBetweenAttacks = source.timeBetweenAttacks,
-            notifyAfterComplete = source.notifyAfterComplete,
-            sendMetrics = source.sendMetrics,
-            logging = source.logging,
-            useGeneratedCache = source.useGeneratedCache
+            rps = source.rps,
+            time = source.time
         )
     }
 }

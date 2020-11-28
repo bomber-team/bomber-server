@@ -4,17 +4,18 @@ springdoc:
   api-docs:
     path: "/bomber/swagger/v3/api-docs"
 
-org:
-  bomber:
-    team:
-      arango:
-        enabled: true
-        host: arango-bomber
-        database: test
+
 nats:
   spring:
     server:
+
+
 spring:
+  data:
+    mongodb:
+      host: 172.17.0.2
+      port: 27017
+      database: bomber
   cloud:
     stream:
       bindings:

@@ -8,7 +8,6 @@ object RestScriptDTOConverter : Converter<RestScript, RestScriptDto> {
     override fun convert(source: RestScript): RestScriptDto {
         return RestScriptDto(
             id = source.id,
-            schemeId = source.schemeId,
             name = source.name,
             address = source.address,
             requestMethod = source.requestMethod,
