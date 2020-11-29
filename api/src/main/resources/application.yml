@@ -19,8 +19,8 @@ spring:
       defaultBinder: nats
       bindings:
         resultchannel:
-          destination: results
+          destination: bomber.results
           binder: nats
         taskchannel:
-          destination: tasks
+          destination: bombers.tasks
           binder: nats
