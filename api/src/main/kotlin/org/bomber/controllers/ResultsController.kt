@@ -4,11 +4,9 @@ import io.swagger.v3.oas.annotations.Operation
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.bomber.api.dto.result.ResultDto
+import org.bomber.service.coroutines.coroutineToMono
 import org.bomber.service.result.ResultService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
@@ -25,5 +23,12 @@ class ResultsController(
         @RequestBody @Valid result: ResultDto
     ) = GlobalScope.launch {
         resultService.save(result)
+    }
+
+    @GetMapping
+    fun getResults(
+        @RequestParam formId: String
+    ) = coroutineToMono {
+        resultService.getAll(formId)
     }
 }

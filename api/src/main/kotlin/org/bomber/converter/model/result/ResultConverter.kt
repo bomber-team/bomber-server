@@ -7,6 +7,7 @@ import org.bomber.api.dto.result.ResultDto
 object ResultConverter : Converter<ResultDto, Result> {
     override fun convert(source: ResultDto): Result {
         return Result(
+            id = source.id,
             bomberIp = source.bomberIp,
             formId = source.formId,
             responses = source.responses.map { ResponseConverter.convert(it) }

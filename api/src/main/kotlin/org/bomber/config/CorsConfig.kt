@@ -11,8 +11,6 @@ import org.springframework.web.reactive.config.WebFluxConfigurer
 class CorsGlobalConfiguration : WebFluxConfigurer {
     override fun addCorsMappings(corsRegistry: CorsRegistry) {
         corsRegistry.addMapping("/**")
-            .allowedOrigins("http://localhost:3000")
-            .allowedMethods("PUT", "POST", "GET", "DELETE", "OPTIONS")
-            .maxAge(3600)
+            .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
     }
 }

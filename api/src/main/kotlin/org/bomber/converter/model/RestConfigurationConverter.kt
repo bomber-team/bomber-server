@@ -7,8 +7,8 @@ import org.springframework.core.convert.converter.Converter
 object RestConfigurationConverter : Converter<RestConfigurationDto, RestConfiguration> {
     override fun convert(source: RestConfigurationDto): RestConfiguration {
         return RestConfiguration(
-            rps = source.rps,
-            time = source.time
+            requestAmount = source.requestAmount,
+            rps = source.rps
         )
     }
 }

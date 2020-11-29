@@ -13,7 +13,7 @@ data class TestForm(
 
     val scriptId: String,
 
-    val event: FormDatabaseEvent?,
+    val event: FormDomainEvent?,
 
     @field:Version
     val version: Long?
