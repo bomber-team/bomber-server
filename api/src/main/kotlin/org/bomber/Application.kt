@@ -12,17 +12,7 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @EnableConfigurationProperties(AppProperties::class)
-class Application(
-    private val suppplier: TaskSource
-) : CommandLineRunner {
-
-    override fun run(vararg args: String?) {
-        val task = TaskProto.Task.newBuilder().setSchema(Scheme.RestSchema.newBuilder().build()).setScript(
-            Script.RestScript.newBuilder().build()
-        ).setFormId("aaaa").build()
-        suppplier.add(task)
-    }
-}
+class Application
 
 fun main(args: Array<String>) {
     runApplication<Application>(*args)

@@ -4,6 +4,5 @@ import io.swagger.v3.oas.annotations.media.Schema
 
 @Schema(name = "RestConfiguration")
 data class RestConfigurationDto(
-    val rps: Int,
-    val time: Int
+    val requestAmount: Int
 )
