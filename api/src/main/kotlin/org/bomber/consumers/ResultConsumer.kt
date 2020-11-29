@@ -1,22 +1,21 @@
 package org.bomber.consumers
 
+import kotlinx.coroutines.runBlocking
+import org.bomber.channels.ResultChannel
 import org.bomber.converter.model.ResultConverter
 import org.bomber.repository.rest.result.ResultRepository
-import org.bomber.service.coroutines.coroutineToMono
 import org.bomber.team.contracts.Result
-import reactor.core.publisher.Flux
-import java.util.function.Consumer
+import org.springframework.cloud.stream.annotation.EnableBinding
+import org.springframework.cloud.stream.annotation.StreamListener
 
+@EnableBinding(ResultChannel::class)
 class ResultConsumer(
     private val resultRepository: ResultRepository
-) : Consumer<Flux<ByteArray>> {
-    override fun accept(t: Flux<ByteArray>) {
-        t.flatMap {
-            coroutineToMono {
-                val result = Result.BomberResult.parseFrom(it)
-                val modelResult = ResultConverter.convert(result)
-                resultRepository.save(modelResult)
-            }
-        }.subscribe()
+) {
+    @StreamListener("resultchannel")
+    fun accept(t: ByteArray) {
+        val result = Result.BomberResult.parseFrom(t)
+        val modelResult = ResultConverter.convert(result)
+        runBlocking { resultRepository.save(modelResult) } // TODO позже перейти на flux
     }
 }

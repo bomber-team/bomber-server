@@ -7,9 +7,7 @@ springdoc:
 
 nats:
   spring:
-    server:
-
-
+    server: 172.17.0.3:4222
 spring:
   data:
     mongodb:
@@ -18,10 +16,11 @@ spring:
       database: bomber
   cloud:
     stream:
+      defaultBinder: nats
       bindings:
-        input:
-          destination: dataIn
+        resultchannel:
+          destination: results
           binder: nats
-        output:
-          destination: dataOut
+        taskchannel:
+          destination: tasks
           binder: nats
