@@ -7,5 +7,7 @@ data class Result(
     val id: String,
     val bomberIp: String,
     val formId: String,
-    val responses: List<Response>
+    val amountTimeoutsRequests: Long,
+    val amountPerStatus: Map<Int, Long>,
+    val msPerRequest: List<Long>
 )

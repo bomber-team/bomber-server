@@ -7,7 +7,7 @@ springdoc:
 
 nats:
   spring:
-    server: 172.17.0.3:4222
+    server: 25.53.4.151:4222
 spring:
   data:
     mongodb:
@@ -19,8 +19,11 @@ spring:
       defaultBinder: nats
       bindings:
         resultchannel:
-          destination: bomber.results
+          destination: bombers.server.task_result
           binder: nats
         taskchannel:
-          destination: bombers.tasks
+          destination: bombers.tasks.b746115b-78e8-4b79-bb93-33bc56047e7d
+          binder: nats
+        devicechannel:
+          destination: bombers.server.init_bomber
           binder: nats

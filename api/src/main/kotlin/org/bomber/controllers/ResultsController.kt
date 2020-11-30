@@ -16,7 +16,6 @@ import javax.validation.Valid
 class ResultsController(
     private val resultService: ResultService
 ) {
-
     @PostMapping
     @Operation(hidden = true)
     fun createResult(

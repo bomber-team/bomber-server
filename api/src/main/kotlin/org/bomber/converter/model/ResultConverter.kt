@@ -10,7 +10,9 @@ object ResultConverter : Converter<Result.BomberResult, org.bomber.model.result.
             id = ObjectId().toHexString(),
             bomberIp = source.bomberIp,
             formId = source.formId,
-            responses = source.responsesList.map { ResponseConverter.convert(it) }
+            amountTimeoutsRequests = source.amountTimeoutsRequests,
+            amountPerStatus = source.amountStatusesPerStatusMap,
+            msPerRequest = source.msPerRequestList
         )
     }
 

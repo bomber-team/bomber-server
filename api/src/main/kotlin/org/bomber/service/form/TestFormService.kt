@@ -7,6 +7,7 @@ import org.bomber.api.dto.requests.UpdateTestFormRequest
 import org.bomber.converter.dto.form.TestFormDtoConverter
 import org.bomber.exception.*
 import org.bomber.model.form.*
+import org.bomber.repository.bombers.BomberRepository
 import org.bomber.repository.form.FormUpdate
 import org.bomber.repository.form.FormsFilter
 import org.bomber.repository.form.TestFormRepository
@@ -24,6 +25,7 @@ class TestFormService(
     private val repository: TestFormRepository,
     private val schemaRepository: RestSchemaRepository,
     private val scriptRepository: RestScriptRepository,
+    private val bomberRepository: BomberRepository,
     private val taskSource: TaskSource
 ) {
     suspend fun create(request: CreateTestFormRequest): TestFormDto {
@@ -78,7 +80,7 @@ class TestFormService(
 
     suspend fun run(formId: String): TestFormDto {
         val form = repository.get(formId) ?: throw TestFormNotFoundException(formId)
-        if (form.status != TestFormStatus.READY) throw TestFormWrongStatusException(formId)
+//        if (form.status != TestFormStatus.READY) throw TestFormWrongStatusException(formId)
         val update = FormUpdate(
             status = TestFormStatus.IN_PROGRESS,
             event = FormDomainEvent(
@@ -99,9 +101,11 @@ class TestFormService(
         val schemeModel = schemaRepository.get(form.schemaId) ?: throw RestSchemaNotFoundException(form.schemaId)
         val requestAmount = scriptModel.configuration.requestAmount
 
-        val requestsPerBomber = requestAmount / BOMBER_AMOUNT
+        val bombers = bomberRepository.getAll(30)
 
-        val tasks = (0..4).map {
+        val requestsPerBomber = requestAmount / bombers.size
+
+        val tasks = (0..bombers.size).map {
             val protoScript = Script.RestScript.newBuilder()
                 .setAddress(scriptModel.address)
                 .setRequestMethod(scriptModel.requestMethod)
@@ -133,7 +137,9 @@ class TestFormService(
                 ).setSchema(protoScheme.build())
                 .build()
         }
-        tasks.forEach { taskSource.add(it) }
+        for (i in tasks.indices) {
+            taskSource.add(bombers[i].id, tasks[i])
+        }
         // TODO неидемпотентное место, переделать затем)
         return result
     }

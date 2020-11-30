@@ -4,5 +4,7 @@ data class ResultDto(
     val id: String,
     val bomberIp: String,
     val formId: String,
-    val responses: List<ResponseDto>
+    val amountTimeoutsRequests: Long,
+    val amountPerStatus: Map<Int, Long>,
+    val msPerRequest: List<Long>
 )

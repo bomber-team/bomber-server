@@ -10,7 +10,9 @@ object ResultDtoConverter : Converter<Result, ResultDto> {
             id = source.id,
             bomberIp = source.bomberIp,
             formId = source.formId,
-            responses = source.responses.map { ResponseDtoConverter.convert(it) }
+            amountTimeoutsRequests = source.amountTimeoutsRequests,
+            amountPerStatus = source.amountPerStatus,
+            msPerRequest = source.msPerRequest
         )
     }
 }
