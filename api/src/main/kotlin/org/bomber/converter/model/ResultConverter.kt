@@ -12,8 +12,8 @@ object ResultConverter : Converter<Result.BomberResult, org.bomber.model.result.
             formId = source.formId,
             amountTimeoutsRequests = source.amountTimeoutsRequests,
             amountPerStatus = source.amountStatusesPerStatusMap,
-            msPerRequest = source.msPerRequestList
+            msPerRequest = source.msPerRequestList,
+            sumTime = source.elapsedTimeAttack
         )
     }
-
 }

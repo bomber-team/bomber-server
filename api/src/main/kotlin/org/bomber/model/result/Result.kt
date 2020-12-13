@@ -9,5 +9,6 @@ data class Result(
     val formId: String,
     val amountTimeoutsRequests: Long,
     val amountPerStatus: Map<Int, Long>,
+    val sumTime: Long,
     val msPerRequest: List<Long>
 )

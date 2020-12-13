@@ -34,7 +34,7 @@ dependencies {
     implementation 'io.nats:jnats:2.8.0'
 
 
-    implementation "org.bomber.proto:rest:1.0.7"
+    implementation "org.bomber.proto:rest:1.1.4"
 
     //jetbrains
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactor"

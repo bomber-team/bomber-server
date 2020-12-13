@@ -4,6 +4,7 @@ import kotlinx.coroutines.runBlocking
 import org.bomber.channels.ResultChannel
 import org.bomber.converter.model.ResultConverter
 import org.bomber.repository.rest.result.ResultRepository
+import org.bomber.service.BadStorage
 import org.bomber.team.contracts.Result
 import org.springframework.cloud.stream.annotation.EnableBinding
 import org.springframework.cloud.stream.annotation.StreamListener
@@ -16,6 +17,7 @@ class ResultConsumer(
     fun accept(t: ByteArray) {
         val result = Result.BomberResult.parseFrom(t)
         val modelResult = ResultConverter.convert(result)
+//        BadStorage.end(modelResult.)
         runBlocking { resultRepository.save(modelResult) } // TODO позже перейти на flux
     }
 }

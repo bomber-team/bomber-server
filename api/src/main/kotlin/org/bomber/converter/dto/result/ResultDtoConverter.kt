@@ -10,9 +10,12 @@ object ResultDtoConverter : Converter<Result, ResultDto> {
             id = source.id,
             bomberIp = source.bomberIp,
             formId = source.formId,
+            sumTime = source.sumTime / NS_TO_S,
             amountTimeoutsRequests = source.amountTimeoutsRequests,
             amountPerStatus = source.amountPerStatus,
             msPerRequest = source.msPerRequest
         )
     }
+
+    private const val NS_TO_S = 1_000_000 * 1_000
 }
