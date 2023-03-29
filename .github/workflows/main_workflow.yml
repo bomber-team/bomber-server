@@ -8,7 +8,7 @@ jobs:
       - uses: MrRamych/gradle-actions/openjdk-11@3.1
         with:
           args: ktlintCheck
-      - uses: elgohr/Publish-Docker-Github-Action@master
+      - uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: kostya05983/bomber-server
           username: ${{ secrets.DOCKER_USERNAME }}
